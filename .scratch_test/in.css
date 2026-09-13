@@ -1,0 +1,45 @@
+@import "tailwindcss";
+@import "@fontsource/caprasimo";
+@import "@fontsource/bebas-neue";
+@import "@fontsource-variable/libre-franklin/wght.css";
+
+@theme {
+	--font-logo: "Caprasimo", cursive;
+	--font-heading: "Bebas Neue", sans-serif;
+	--font-body: "Libre Franklin Variable", sans-serif;
+
+	--color-primary-50: #f2f0ff;
+	--color-primary-100: #e1dbff;
+	--color-primary-200: #bfb2ff;
+	--color-primary-300: #9580ff;
+	--color-primary-400: #6242ff;
+	--color-primary-500: #2a00ff;
+	--color-primary-600: #2200cc;
+	--color-primary-700: #1a009e;
+	--color-primary-800: #140075;
+	--color-primary-900: #0d004c;
+
+	--color-secondary-50: #fcfff0;
+	--color-secondary-100: #f8fedc;
+	--color-secondary-200: #effeb4;
+	--color-secondary-300: #e4fd81;
+	--color-secondary-400: #d8fc45;
+	--color-secondary-500: #cafb04;
+	--color-secondary-600: #a1c903;
+	--color-secondary-700: #7d9c02;
+	--color-secondary-800: #5d7402;
+	--color-secondary-900: #3d4b01;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+	box-sizing: border-box;
+}
+
+#root {
+	width: 100%;
+	height: 100%;
+}
