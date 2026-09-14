@@ -1,3 +1,4 @@
+import { START_MENU_LINK } from "@/utils/styles";
 import {
 	IconChevronRightFilled,
 	IconLockFilled,
@@ -49,12 +50,13 @@ export default function StartMenu({
 			ref={startMenuRef}
 			className={clsx(
 				"absolute",
-				"flex items-center gap-1",
+				"z-100",
+				"flex items-center gap-2",
 				"bottom-12 -left-4",
 				"w-108 h-120",
 				"p-2",
 				"bg-linear-to-b from-primary-600/75 to-primary-700/75",
-				"backdrop-blur-sm",
+				"backdrop-blur-2xl",
 				"rounded-t-md",
 				"border border-primary-400/50",
 				"outline outline-primary-700",
@@ -95,7 +97,14 @@ export default function StartMenu({
 				id="start-menu-right"
 				className={clsx("flex flex-col gap-2", "h-full", "basis-2/5")}
 			>
-				<div id="start-menu-right-items" className={clsx("basis-full")}></div>
+        <div id="start-menu-right-items" className={clsx("basis-full", "flex flex-col gap-4", "px-1 py-8")}>
+          <a className={START_MENU_LINK} href="https://bun.sh" target="_blank">Bun</a>
+          <a className={START_MENU_LINK} href="https://react.dev" target="_blank">React</a>
+          <a className={START_MENU_LINK} href="https://tailwindcss.com" target="_blank">Tailwind</a>
+          <a className={START_MENU_LINK} href="https://tanstack.com/router/latest" target="_blank">Tanstack Router</a>
+          <div className="box-content h-px w-full border-b border-b-primary-400 bg-black" />
+          <a className={START_MENU_LINK} href="https://www.backblaze.com/" target="_blank">Backblaze</a>
+				</div>
 				<div
 					id="start-menu-right-buttons"
 					className={clsx("h-7 w-full", "flex")}
@@ -107,10 +116,10 @@ export default function StartMenu({
 							"relative isolate",
 							"w-2/5",
 							"flex items-center justify-center",
-							"rounded-l-md rounded-r-xs",
+							"rounded-l-sm rounded-r-xs",
 							"p-px",
 							"shadow-xs",
-							"outline outline-black/75",
+							"z-2",
 							"border border-white/15 border-b-0",
 						)}
 					>
@@ -119,7 +128,7 @@ export default function StartMenu({
 							className={clsx(
 								"absolute inset-0 -z-10",
 								"bg-secondary-300",
-								"rounded-l-md rounded-r-xs",
+								"rounded-l-sm rounded-r-xs",
 								"brightness-80 saturate-90",
 							)}
 						/>
@@ -128,7 +137,7 @@ export default function StartMenu({
 								"bg-power",
 								"w-full h-full",
 								"flex items-center justify-center",
-								"rounded-l-md rounded-r-xs",
+								"rounded-l-sm rounded-r-xs",
 								"brightness-90",
 							)}
 						>
@@ -142,40 +151,102 @@ export default function StartMenu({
 								<IconPower
 									color="black"
 									size={21}
-									className="absolute opacity-75 isolate top-0 left-0 blur-[1px]"
+									className="absolute opacity-25 isolate top-0 left-0 blur-[1px]"
 								/>
 							</div>
 						</div>
 					</button>
 					<button
 						type="button"
-						id="start-menu-power-button"
+						id="start-menu-lock-button"
 						className={clsx(
+							"relative isolate",
 							"w-2/5",
 							"flex items-center justify-center",
 							"rounded-xs",
-							"bg-taskbar",
-							"outline outline-black/75 outline-l-0",
-							"border border-white/3 border-b-0",
+							"p-px",
 							"shadow-xs",
+							"border border-white/3 border-b-0",
 						)}
 					>
-						<IconLockFilled color="white" size={20} />
+						<span
+							aria-hidden
+							className={clsx(
+								"absolute inset-0 -z-10",
+								"bg-primary-300",
+								"rounded-xs",
+								"brightness-80 saturate-90",
+							)}
+						/>
+						<div
+							className={clsx(
+								"bg-taskbar",
+								"w-full h-full",
+								"flex items-center justify-center",
+								"rounded-xs",
+								"brightness-90",
+							)}
+						>
+							<div className="relative w-5.5 h-5.5">
+								<IconLockFilled
+									color="white"
+									size={20}
+									className="absolute isolate z-2 top-0 left-0"
+								/>
+								<div className="absolute isolate z-1 top-0 left-0 bg-black/25 blur-xs w-4.5 h-4.5" />
+								<IconLockFilled
+									color="black"
+									size={21}
+									className="absolute opacity-25 isolate top-0 left-0 blur-[1px]"
+								/>
+							</div>
+						</div>
 					</button>
 					<button
 						type="button"
-						id="start-menu-power-button"
+						id="start-menu-other-button"
 						className={clsx(
+							"relative isolate",
 							"w-1/5",
 							"flex items-center justify-center",
-							"rounded-xs",
-							"bg-taskbar",
-							"outline outline-black/75 outline-l-0",
-							"border border-white/3 border-b-0",
+							"rounded-l-xs rounded-r-sm",
+							"p-px",
 							"shadow-xs",
+							"border border-white/3 border-b-0",
 						)}
 					>
-						<IconChevronRightFilled color="white" size={20} />
+						<span
+							aria-hidden
+							className={clsx(
+								"absolute inset-0 -z-10",
+								"bg-primary-300",
+								"rounded-l-xs rounded-r-md",
+								"brightness-80 saturate-90",
+							)}
+						/>
+						<div
+							className={clsx(
+								"bg-taskbar",
+								"w-full h-full",
+								"flex items-center justify-center",
+								"rounded-l-xs rounded-r-md",
+								"brightness-90",
+							)}
+						>
+							<div className="relative w-5.5 h-5.5">
+								<IconChevronRightFilled
+									color="white"
+									size={20}
+									className="absolute isolate z-2 top-0 left-0"
+								/>
+								<div className="absolute isolate z-1 top-0 left-0 bg-black/25 blur-xs w-4.5 h-4.5" />
+								<IconChevronRightFilled
+									color="black"
+									size={21}
+									className="absolute opacity-25 isolate top-0 left-0 blur-[1px]"
+								/>
+							</div>
+						</div>
 					</button>
 				</div>
 			</div>

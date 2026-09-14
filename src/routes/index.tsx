@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import clsx from "clsx";
-import StartButton from "../components/taskbar/StartButton";
+import Taskbar from "@/components/taskbar/Taskbar";
+import { SOCIALS } from "@/utils/constants";
+import DesktopIcon from "@/components/desktop/DesktopIcon";
 
 export const Route = createFileRoute("/")({
 	component: Index,
@@ -16,29 +18,16 @@ function Index() {
 				"box-border",
 				"flex",
 				"flex-col",
-				"bg-black",
+				"bg-base-800",
 			)}
 		>
-			<main className={clsx("basis-full", "relative")}></main>
-			<footer
-				id="taskbar-container"
-				className={clsx(
-					"box-border",
-					"flex items-center",
-					"w-full",
-					"h-12",
-					"px-4",
-					"bg-taskbar",
-					"backdrop-blur-sm",
-					"border-t-primary-300",
-				)}
-			>
-				<div id="taskbar-left" className={clsx("flex items-center")}>
-					<StartButton />
-				</div>
-				<div id="taskbar-center"></div>
-				<div id="taskbar-right"></div>
-			</footer>
+      <main className={clsx("basis-full", "relative")}>
+
+        <div id="desktop_icons" className={clsx("w-full h-full", "py-2 px-4", "flex flex-col flex-wrap gap-16")}>
+          {SOCIALS.map((social) => <DesktopIcon {...{social}} />)}
+					</div>
+			</main>
+			<Taskbar />
 		</div>
 	);
 }

@@ -1,7 +1,7 @@
 import { IconHeartFilled } from "@tabler/icons-react";
 import clsx from "clsx";
 import { useRef, useState } from "react";
-import StartMenu from "./StartMenu";
+import StartMenu from "@/components/taskbar/StartMenu";
 
 export default function StartButton() {
 	const [openMenu, setOpenMenu] = useState(false);
@@ -18,6 +18,7 @@ export default function StartButton() {
 				className={clsx(
 					"box-border",
 					"relative",
+					"z-101",
 					"overflow-hidden",
 					"w-12 h-12",
 					"rounded-full",
