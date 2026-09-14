@@ -1,0 +1,184 @@
+import {
+	IconChevronRightFilled,
+	IconLockFilled,
+	IconPower,
+} from "@tabler/icons-react";
+import clsx from "clsx";
+import {
+	useEffect,
+	useRef,
+	type Dispatch,
+	type RefObject,
+	type SetStateAction,
+} from "react";
+
+export default function StartMenu({
+	openMenu,
+	setOpenMenu,
+	startButtonRef,
+}: {
+	openMenu: boolean;
+	setOpenMenu: Dispatch<SetStateAction<boolean>>;
+	startButtonRef: RefObject<HTMLButtonElement | null>;
+}) {
+	const startMenuRef = useRef<HTMLDivElement | null>(null);
+
+	useEffect(() => {
+		function handleClickOutside(event: MouseEvent) {
+			if (
+				startMenuRef.current &&
+				startButtonRef.current &&
+				!startMenuRef.current.contains(event.target as Node) &&
+				!startButtonRef.current.contains(event.target as Node)
+			) {
+				console.log("click outside");
+				setOpenMenu(false);
+			}
+		}
+
+		document.addEventListener("mousedown", handleClickOutside);
+
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, []);
+
+	return (
+		<div
+			id="start-menu-container"
+			ref={startMenuRef}
+			className={clsx(
+				"absolute",
+				"flex items-center gap-1",
+				"bottom-12 -left-4",
+				"w-108 h-120",
+				"p-2",
+				"bg-linear-to-b from-primary-600/75 to-primary-700/75",
+				"backdrop-blur-sm",
+				"rounded-t-md",
+				"border border-primary-400/50",
+				"outline outline-primary-700",
+				"shadow-md",
+				openMenu ? "block" : "hidden",
+			)}
+		>
+			<div
+				id="start-menu-left"
+				className={clsx("flex flex-col gap-2", "h-full", "basis-3/5")}
+			>
+				<div
+					id="start-menu-left-items"
+					className={clsx(
+						"bg-primary-50",
+						"basis-full",
+						"rounded-sm",
+						"inset-shadow-sm",
+						"border border-primary-400/50",
+					)}
+				></div>
+				<input
+					type="text"
+					id="start-menu-left-search"
+					placeholder="Start search..."
+					className={clsx(
+						"bg-primary-50",
+						"h-7",
+						"p-1",
+						"placeholder:italic",
+						"text-sm",
+						"inset-shadow-sm",
+						"border border-primary-400/50",
+					)}
+				/>
+			</div>
+			<div
+				id="start-menu-right"
+				className={clsx("flex flex-col gap-2", "h-full", "basis-2/5")}
+			>
+				<div id="start-menu-right-items" className={clsx("basis-full")}></div>
+				<div
+					id="start-menu-right-buttons"
+					className={clsx("h-7 w-full", "flex")}
+				>
+					<button
+						type="button"
+						id="start-menu-power-button"
+						className={clsx(
+							"relative isolate",
+							"w-2/5",
+							"flex items-center justify-center",
+							"rounded-l-md rounded-r-xs",
+							"p-px",
+							"shadow-xs",
+							"outline outline-black/75",
+							"border border-white/15 border-b-0",
+						)}
+					>
+						<span
+							aria-hidden
+							className={clsx(
+								"absolute inset-0 -z-10",
+								"bg-secondary-300",
+								"rounded-l-md rounded-r-xs",
+								"brightness-80 saturate-90",
+							)}
+						/>
+						<div
+							className={clsx(
+								"bg-power",
+								"w-full h-full",
+								"flex items-center justify-center",
+								"rounded-l-md rounded-r-xs",
+								"brightness-90",
+							)}
+						>
+							<div className="relative w-5.5 h-5.5">
+								<IconPower
+									color="white"
+									size={20}
+									className="absolute isolate z-2 top-0 left-0"
+								/>
+								<div className="absolute isolate z-1 top-0 left-0 bg-black/25 blur-xs w-4.5 h-4.5" />
+								<IconPower
+									color="black"
+									size={21}
+									className="absolute opacity-75 isolate top-0 left-0 blur-[1px]"
+								/>
+							</div>
+						</div>
+					</button>
+					<button
+						type="button"
+						id="start-menu-power-button"
+						className={clsx(
+							"w-2/5",
+							"flex items-center justify-center",
+							"rounded-xs",
+							"bg-taskbar",
+							"outline outline-black/75 outline-l-0",
+							"border border-white/3 border-b-0",
+							"shadow-xs",
+						)}
+					>
+						<IconLockFilled color="white" size={20} />
+					</button>
+					<button
+						type="button"
+						id="start-menu-power-button"
+						className={clsx(
+							"w-1/5",
+							"flex items-center justify-center",
+							"rounded-xs",
+							"bg-taskbar",
+							"outline outline-black/75 outline-l-0",
+							"border border-white/3 border-b-0",
+							"shadow-xs",
+						)}
+					>
+						<IconChevronRightFilled color="white" size={20} />
+					</button>
+				</div>
+			</div>
+		</div>
+	);
+}
