@@ -45,6 +45,7 @@
 		color-mix(in srgb, var(--color-primary-700) 60%, transparent) 55%,
 		color-mix(in srgb, var(--color-primary-800) 60%, transparent) 100%
 	);
+
 	--background-image-start: linear-gradient(
 		180deg,
 		var(--color-secondary-100) 3%,
@@ -62,7 +63,7 @@
 	);
 
 	--background-image-browser-window: linear-gradient(
-	    180deg,
+		180deg,
 		color-mix(in srgb, var(--color-base-300) 60%, transparent) 0%,
 		color-mix(in srgb, var(--color-base-400) 60%, transparent) 25%,
 		color-mix(in srgb, var(--color-base-200) 60%, transparent) 33%,
@@ -70,7 +71,16 @@
 		var(--color-base-500) 34%,
 		var(--color-base-300) 67%,
 		var(--color-base-400) 100%
-	)
+	);
+
+	--background-image-browser-button: linear-gradient(
+		180deg,
+		color-mix(in srgb, var(--color-base-50) 70%, transparent) 0%,
+		color-mix(in srgb, var(--color-base-400) 60%, transparent) 5%,
+		color-mix(in srgb, var(--color-base-300) 60%, transparent) 52%,
+		color-mix(in srgb, var(--color-base-700) 60%, transparent) 55%,
+		color-mix(in srgb, var(--color-base-800) 60%, transparent) 100%
+	);
 }
 
 body {
