@@ -54,17 +54,23 @@
 
 	--background-image-power: linear-gradient(
 		180deg,
-		/* color-mix(in srgb, var(--color-secondary-50) 80%, transparent) 0%,
-		/* color-mix(in srgb, var(--color-secondary-400) 60%, transparent) 25%, */
-		/* color-mix(in srgb, var(--color-secondary-300) 60%, transparent) 52%, */
-		/* color-mix(in srgb, var(--color-secondary-800) 60%, transparent) 55%, */
-		/* color-mix(in srgb, var(--color-secondary-700) 60%, transparent) 100% */
 		var(--color-secondary-50) 0%,
 		var(--color-secondary-400) 25%,
 		var(--color-secondary-300) 52%,
 		var(--color-secondary-800) 55%,
 		var(--color-secondary-700) 100%
 	);
+
+	--background-image-browser-window: linear-gradient(
+	    180deg,
+		color-mix(in srgb, var(--color-base-300) 60%, transparent) 0%,
+		color-mix(in srgb, var(--color-base-400) 60%, transparent) 25%,
+		color-mix(in srgb, var(--color-base-200) 60%, transparent) 33%,
+		var(--color-base-200) 34%,
+		var(--color-base-500) 34%,
+		var(--color-base-300) 67%,
+		var(--color-base-400) 100%
+	)
 }
 
 body {

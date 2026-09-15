@@ -61,7 +61,7 @@ export default function StartMenu({
 				"rounded-t-md",
 				"border border-primary-400/50",
 				"outline outline-primary-700",
-				"shadow-md",
+				"shadow-lg/100",
 				openMenu ? "block" : "hidden",
 			)}
 		>
