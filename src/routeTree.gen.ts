@@ -8,154 +8,179 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as BlogRouteImport } from './routes/_blog'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as WorkRouteImport } from './routes/work'
-import { Route as BlogBlogIndexRouteImport } from './routes/_blog/blog/index'
-import { Route as BlogBlogPostSlugRouteImport } from './routes/_blog/blog/$postSlug'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as BlogRouteImport } from "./routes/_blog";
+import { Route as BrowseRouteImport } from "./routes/_browse";
+import { Route as BrowseAboutRouteImport } from "./routes/_browse/about";
+import { Route as BrowseWorkRouteImport } from "./routes/_browse/work";
+import { Route as BlogBlogIndexRouteImport } from "./routes/_browse/_blog/blog/index";
+import { Route as BlogBlogPostSlugRouteImport } from "./routes/_browse/_blog/blog/$postSlug";
 
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
+	id: "/",
+	path: "/",
+	getParentRoute: () => rootRouteImport,
+} as any);
 const BlogRoute = BlogRouteImport.update({
-  id: '/_blog',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const WorkRoute = WorkRouteImport.update({
-  id: '/work',
-  path: '/work',
-  getParentRoute: () => rootRouteImport,
-} as any)
+	id: "/_blog",
+	getParentRoute: () => rootRouteImport,
+} as any);
+const BrowseRoute = BrowseRouteImport.update({
+	id: "/_browse",
+	getParentRoute: () => rootRouteImport,
+} as any);
+const BrowseAboutRoute = BrowseAboutRouteImport.update({
+	id: "/about",
+	path: "/about",
+	getParentRoute: () => BrowseRoute,
+} as any);
+const BrowseWorkRoute = BrowseWorkRouteImport.update({
+	id: "/work",
+	path: "/work",
+	getParentRoute: () => BrowseRoute,
+} as any);
 const BlogBlogIndexRoute = BlogBlogIndexRouteImport.update({
-  id: '/blog/',
-  path: '/blog/',
-  getParentRoute: () => BlogRoute,
-} as any)
+	id: "/blog/",
+	path: "/blog/",
+	getParentRoute: () => BlogRoute,
+} as any);
 const BlogBlogPostSlugRoute = BlogBlogPostSlugRouteImport.update({
-  id: '/blog/$postSlug',
-  path: '/blog/$postSlug',
-  getParentRoute: () => BlogRoute,
-} as any)
+	id: "/blog/$postSlug",
+	path: "/blog/$postSlug",
+	getParentRoute: () => BlogRoute,
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/work': typeof WorkRoute
-  '/blog/$postSlug': typeof BlogBlogPostSlugRoute
-  '/blog/': typeof BlogBlogIndexRoute
+	"/": typeof IndexRoute;
+	"/about": typeof BrowseAboutRoute;
+	"/work": typeof BrowseWorkRoute;
+	"/blog/$postSlug": typeof BlogBlogPostSlugRoute;
+	"/blog/": typeof BlogBlogIndexRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/work': typeof WorkRoute
-  '/blog/$postSlug': typeof BlogBlogPostSlugRoute
-  '/blog': typeof BlogBlogIndexRoute
+	"/": typeof IndexRoute;
+	"/about": typeof BrowseAboutRoute;
+	"/work": typeof BrowseWorkRoute;
+	"/blog/$postSlug": typeof BlogBlogPostSlugRoute;
+	"/blog": typeof BlogBlogIndexRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/_blog': typeof BlogRouteWithChildren
-  '/about': typeof AboutRoute
-  '/work': typeof WorkRoute
-  '/_blog/blog/$postSlug': typeof BlogBlogPostSlugRoute
-  '/_blog/blog/': typeof BlogBlogIndexRoute
+	__root__: typeof rootRouteImport;
+	"/": typeof IndexRoute;
+	"/_blog": typeof BlogRouteWithChildren;
+	"/_browse": typeof BrowseRouteWithChildren;
+	"/_browse/about": typeof BrowseAboutRoute;
+	"/_browse/work": typeof BrowseWorkRoute;
+	"/_blog/blog/$postSlug": typeof BlogBlogPostSlugRoute;
+	"/_blog/blog/": typeof BlogBlogIndexRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/work' | '/blog/$postSlug' | '/blog/'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/work' | '/blog/$postSlug' | '/blog'
-  id:
-    | '__root__'
-    | '/'
-    | '/_blog'
-    | '/about'
-    | '/work'
-    | '/_blog/blog/$postSlug'
-    | '/_blog/blog/'
-  fileRoutesById: FileRoutesById
+	fileRoutesByFullPath: FileRoutesByFullPath;
+	fullPaths: "/" | "/about" | "/work" | "/blog/$postSlug" | "/blog/";
+	fileRoutesByTo: FileRoutesByTo;
+	to: "/" | "/about" | "/work" | "/blog/$postSlug" | "/blog";
+	id:
+		| "__root__"
+		| "/"
+		| "/_blog"
+		| "/_browse"
+		| "/_browse/about"
+		| "/_browse/work"
+		| "/_blog/blog/$postSlug"
+		| "/_blog/blog/";
+	fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  BlogRoute: typeof BlogRouteWithChildren
-  AboutRoute: typeof AboutRoute
-  WorkRoute: typeof WorkRoute
+	IndexRoute: typeof IndexRoute;
+	BlogRoute: typeof BlogRouteWithChildren;
+	BrowseRoute: typeof BrowseRouteWithChildren;
 }
 
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_blog': {
-      id: '/_blog'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof BlogRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/work': {
-      id: '/work'
-      path: '/work'
-      fullPath: '/work'
-      preLoaderRoute: typeof WorkRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_blog/blog/': {
-      id: '/_blog/blog/'
-      path: '/blog'
-      fullPath: '/blog/'
-      preLoaderRoute: typeof BlogBlogIndexRouteImport
-      parentRoute: typeof BlogRoute
-    }
-    '/_blog/blog/$postSlug': {
-      id: '/_blog/blog/$postSlug'
-      path: '/blog/$postSlug'
-      fullPath: '/blog/$postSlug'
-      preLoaderRoute: typeof BlogBlogPostSlugRouteImport
-      parentRoute: typeof BlogRoute
-    }
-  }
+declare module "@tanstack/react-router" {
+	interface FileRoutesByPath {
+		"/": {
+			id: "/";
+			path: "/";
+			fullPath: "/";
+			preLoaderRoute: typeof IndexRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/_blog": {
+			id: "/_blog";
+			path: "";
+			fullPath: "/";
+			preLoaderRoute: typeof BlogRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/_browse": {
+			id: "/_browse";
+			path: "";
+			fullPath: "/";
+			preLoaderRoute: typeof BrowseRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/_browse/about": {
+			id: "/_browse/about";
+			path: "/about";
+			fullPath: "/about";
+			preLoaderRoute: typeof BrowseAboutRouteImport;
+			parentRoute: typeof BrowseRoute;
+		};
+		"/_browse/work": {
+			id: "/_browse/work";
+			path: "/work";
+			fullPath: "/work";
+			preLoaderRoute: typeof BrowseWorkRouteImport;
+			parentRoute: typeof BrowseRoute;
+		};
+		"/_blog/blog/": {
+			id: "/_blog/blog/";
+			path: "/blog";
+			fullPath: "/blog/";
+			preLoaderRoute: typeof BlogBlogIndexRouteImport;
+			parentRoute: typeof BlogRoute;
+		};
+		"/_blog/blog/$postSlug": {
+			id: "/_blog/blog/$postSlug";
+			path: "/blog/$postSlug";
+			fullPath: "/blog/$postSlug";
+			preLoaderRoute: typeof BlogBlogPostSlugRouteImport;
+			parentRoute: typeof BlogRoute;
+		};
+	}
 }
 
 interface BlogRouteChildren {
-  BlogBlogPostSlugRoute: typeof BlogBlogPostSlugRoute
-  BlogBlogIndexRoute: typeof BlogBlogIndexRoute
+	BlogBlogPostSlugRoute: typeof BlogBlogPostSlugRoute;
+	BlogBlogIndexRoute: typeof BlogBlogIndexRoute;
 }
 
 const BlogRouteChildren: BlogRouteChildren = {
-  BlogBlogPostSlugRoute: BlogBlogPostSlugRoute,
-  BlogBlogIndexRoute: BlogBlogIndexRoute,
+	BlogBlogPostSlugRoute: BlogBlogPostSlugRoute,
+	BlogBlogIndexRoute: BlogBlogIndexRoute,
+};
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren);
+
+interface BrowseRouteChildren {
+	BrowseAboutRoute: typeof BrowseAboutRoute;
+	BrowseWorkRoute: typeof BrowseWorkRoute;
 }
 
-const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
+const BrowseRouteChildren: BrowseRouteChildren = {
+	BrowseAboutRoute: BrowseAboutRoute,
+	BrowseWorkRoute: BrowseWorkRoute,
+};
+
+const BrowseRouteWithChildren =
+	BrowseRoute._addFileChildren(BrowseRouteChildren);
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  BlogRoute: BlogRouteWithChildren,
-  AboutRoute: AboutRoute,
-  WorkRoute: WorkRoute,
-}
+	IndexRoute: IndexRoute,
+	BlogRoute: BlogRouteWithChildren,
+	BrowseRoute: BrowseRouteWithChildren,
+};
 export const routeTree = rootRouteImport
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+	._addFileChildren(rootRouteChildren)
+	._addFileTypes<FileRouteTypes>();

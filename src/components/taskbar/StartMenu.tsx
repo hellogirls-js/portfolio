@@ -1,9 +1,10 @@
-import { START_MENU_LINK } from "@/utils/styles";
+import { START_MENU_LEFT_LINK, START_MENU_RIGHT_LINK } from "@/utils/styles";
 import {
 	IconChevronRightFilled,
 	IconLockFilled,
 	IconPower,
 } from "@tabler/icons-react";
+import { Link } from "@tanstack/react-router";
 import clsx from "clsx";
 import {
 	useEffect,
@@ -71,13 +72,30 @@ export default function StartMenu({
 				<div
 					id="start-menu-left-items"
 					className={clsx(
+						"flex flex-col",
 						"bg-primary-50",
+						"p-1",
+						"gap-2",
 						"basis-full",
 						"rounded-sm",
 						"inset-shadow-sm",
 						"border border-primary-400/50",
 					)}
-				></div>
+				>
+					<Link className={clsx(START_MENU_LEFT_LINK)} to="/about">
+						About
+					</Link>
+					<Link className={clsx(START_MENU_LEFT_LINK)} to="/work">
+						Work
+					</Link>
+					<Link
+						className={clsx(START_MENU_LEFT_LINK)}
+						to="/blog"
+						params={{ postSlug: "" }}
+					>
+						Blog
+					</Link>
+				</div>
 				<input
 					type="text"
 					id="start-menu-left-search"
@@ -97,13 +115,51 @@ export default function StartMenu({
 				id="start-menu-right"
 				className={clsx("flex flex-col gap-2", "h-full", "basis-2/5")}
 			>
-        <div id="start-menu-right-items" className={clsx("basis-full", "flex flex-col gap-4", "px-1 py-8")}>
-          <a className={START_MENU_LINK} href="https://bun.sh" target="_blank">Bun</a>
-          <a className={START_MENU_LINK} href="https://react.dev" target="_blank">React</a>
-          <a className={START_MENU_LINK} href="https://tailwindcss.com" target="_blank">Tailwind</a>
-          <a className={START_MENU_LINK} href="https://tanstack.com/router/latest" target="_blank">Tanstack Router</a>
-          <div className="box-content h-px w-full border-b border-b-primary-400 bg-black" />
-          <a className={START_MENU_LINK} href="https://www.backblaze.com/" target="_blank">Backblaze</a>
+				<div
+					id="start-menu-right-items"
+					className={clsx("basis-full", "flex flex-col gap-4", "px-1 py-8")}
+				>
+					<a
+						className={START_MENU_RIGHT_LINK}
+						href="https://bun.sh"
+						target="_blank"
+						rel="noopener"
+					>
+						Bun
+					</a>
+					<a
+						className={START_MENU_RIGHT_LINK}
+						href="https://react.dev"
+						target="_blank"
+						rel="noopener"
+					>
+						React
+					</a>
+					<a
+						className={START_MENU_RIGHT_LINK}
+						href="https://tailwindcss.com"
+						target="_blank"
+						rel="noopener"
+					>
+						Tailwind
+					</a>
+					<a
+						className={START_MENU_RIGHT_LINK}
+						href="https://tanstack.com/router/latest"
+						target="_blank"
+						rel="noopener"
+					>
+						Tanstack Router
+					</a>
+					<div className="box-content h-px w-full border-b border-b-primary-400 bg-black" />
+					<a
+						className={START_MENU_RIGHT_LINK}
+						href="https://www.backblaze.com/"
+						target="_blank"
+						rel="noopener"
+					>
+						Backblaze
+					</a>
 				</div>
 				<div
 					id="start-menu-right-buttons"

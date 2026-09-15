@@ -25,6 +25,7 @@ export default function StartButton() {
 					"bg-secondary-800",
 					"p-0.5",
 					"outline-1 outline-primary-900/50",
+					"hover:brightness-110",
 				)}
 			>
 				<div
