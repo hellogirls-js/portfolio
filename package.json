@@ -7,8 +7,8 @@
 		"generate-routes": "tsr generate",
 		"watch-routes": "tsr watch",
 		"dev": "vite",
-		"build": "npm run generate-routes && tsc -b && vite build",
-		"lint": "eslint .",
+		"build": "bun generate-routes && tsc -b && vite build",
+		"lint": "biome .",
 		"preview": "vite preview"
 	},
 	"dependencies": {
@@ -17,6 +17,7 @@
 		"@tailwindcss/vite": "^4.3.3",
 		"@tanstack/react-router": "^1.170.31",
 		"@tanstack/react-router-devtools": "^1.167.1",
+		"biome": "^0.3.3",
 		"clsx": "^2.1.1",
 		"dayjs": "^1.11.23",
 		"react": "^19.2.8",
