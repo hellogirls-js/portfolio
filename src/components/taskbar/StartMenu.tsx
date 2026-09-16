@@ -4,7 +4,7 @@ import {
 	IconLockFilled,
 	IconPower,
 } from "@tabler/icons-react";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import clsx from "clsx";
 import {
 	useEffect,
@@ -33,7 +33,6 @@ export default function StartMenu({
 				!startMenuRef.current.contains(event.target as Node) &&
 				!startButtonRef.current.contains(event.target as Node)
 			) {
-				console.log("click outside");
 				setOpenMenu(false);
 			}
 		}
@@ -44,6 +43,12 @@ export default function StartMenu({
 			document.removeEventListener("mousedown", handleClickOutside);
 		};
 	}, []);
+
+	const router = useRouterState();
+
+	useEffect(() => {
+		setOpenMenu(false);
+	}, [router.location]);
 
 	return (
 		<div
@@ -57,7 +62,7 @@ export default function StartMenu({
 				"w-108 h-120",
 				"p-2",
 				"bg-linear-to-b from-primary-600/75 to-primary-700/75",
-				"backdrop-blur-2xl",
+				"backdrop-blur-sm",
 				"rounded-t-md",
 				"border border-primary-400/50",
 				"outline outline-primary-700",
@@ -65,6 +70,21 @@ export default function StartMenu({
 				openMenu ? "block" : "hidden",
 			)}
 		>
+			<div
+				id="start-menu-avatar-container"
+				className="absolute size-32 right-6 -top-1/10 flex items-center justify-center pointer-none select-none"
+			>
+				<img
+					alt="profile avatar"
+					src="https://assets.hellogirls.info/portfolio/assets/avatar.webp"
+					className="size-22"
+				/>
+				<img
+					alt="frame"
+					src="https://assets.hellogirls.info/portfolio/assets/frame.webp"
+					className="absolute top-0 left-0 size-32"
+				/>
+			</div>
 			<div
 				id="start-menu-left"
 				className={clsx("flex flex-col gap-2", "h-full", "basis-3/5")}
@@ -117,7 +137,12 @@ export default function StartMenu({
 			>
 				<div
 					id="start-menu-right-items"
-					className={clsx("basis-full", "flex flex-col gap-4", "px-1 py-8")}
+					className={clsx(
+						"basis-full",
+						"flex flex-col gap-4",
+						"px-1 py-2",
+						"mt-20",
+					)}
 				>
 					<a
 						className={START_MENU_RIGHT_LINK}
