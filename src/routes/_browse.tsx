@@ -96,6 +96,7 @@ function BrowserLayout() {
 						"rounded-tr-sm",
 						"flex items-center justify-between gap-7",
 						"border-l border-base-50",
+						"border-b border-b-primary-400",
 					)}
 				>
 					<div

@@ -72,7 +72,7 @@ export default function StartMenu({
 		>
 			<div
 				id="start-menu-avatar-container"
-				className="absolute size-32 right-6 -top-1/10 flex items-center justify-center pointer-none select-none"
+				className="absolute size-32 right-6 -top-1/10 flex items-center justify-center pointer-events-none select-none"
 			>
 				<img
 					alt="profile avatar"
@@ -82,7 +82,7 @@ export default function StartMenu({
 				<img
 					alt="frame"
 					src="https://assets.hellogirls.info/portfolio/assets/frame.webp"
-					className="absolute top-0 left-0 size-32"
+					className="absolute top-0 left-0 size-32 select-none pointer-events-none"
 				/>
 			</div>
 			<div
@@ -100,6 +100,7 @@ export default function StartMenu({
 						"rounded-sm",
 						"inset-shadow-sm",
 						"border border-primary-400/50",
+						"select-none",
 					)}
 				>
 					<Link className={clsx(START_MENU_LEFT_LINK)} to="/about">
