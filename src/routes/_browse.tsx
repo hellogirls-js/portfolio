@@ -31,16 +31,20 @@ function BrowserLayout() {
 
   return (
     <motion.div
-      initial={{ scale: 0, x: -100, y: 100 }}
-      animate={{ scale: 1, x: 0, y: 0 }}
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
+      exit={{ scale: 0 }}
       transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
+      style={{ transformOrigin: "2% 100%" }}
       className={clsx(
         "browser-window-container",
+        "absolute",
         "box-border",
-        "h-full",
+        "size-full",
         "bg-browser-window",
         "backdrop-blur-sm",
         "px-2 pb-2",
+        "z-100",
         "flex flex-col",
       )}
     >

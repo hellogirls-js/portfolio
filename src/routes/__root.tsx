@@ -1,20 +1,24 @@
-import {
-  createRootRoute,
-  Outlet,
-  useLocation,
-  useRouterState,
-} from "@tanstack/react-router";
+import { createRootRoute, Outlet, useLocation } from "@tanstack/react-router";
 import clsx from "clsx";
+import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import DesktopIcon from "@/components/desktop/DesktopIcon";
+import DesktopLoader from "@/components/desktop/DesktopLoader";
 import Taskbar from "@/components/taskbar/Taskbar";
 import { SOCIALS } from "@/utils/constants";
 import { preloadImage } from "@/utils/functions";
-import DesktopLoader from "@/components/desktop/DesktopLoader";
-import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useState } from "react";
 
 function RootLayout() {
   const { images } = Route.useLoaderData();
   const { pathname } = useLocation();
+
+  const [frozenOutlet, setFrozenOutlet] = useState(<Outlet />);
+
+  useEffect(() => {
+    if (pathname !== "/") {
+      setFrozenOutlet(<Outlet />);
+    }
+  }, [pathname]);
 
   return (
     <div
@@ -47,16 +51,8 @@ function RootLayout() {
             />
           ))}
         </div>
-        <AnimatePresence>
-          {pathname !== "/" && (
-            <motion.div
-              exit={{ scale: 0 }}
-              id="page-container"
-              className={clsx("absolute", "z-2", "size-full")}
-            >
-              <Outlet />
-            </motion.div>
-          )}
+        <AnimatePresence onExitComplete={() => console.log("complete exit")}>
+          <Outlet key={pathname !== "/" ? 1 : 0} />
         </AnimatePresence>
       </main>
       <Taskbar />
@@ -75,7 +71,8 @@ export const Route = createRootRoute({
     await Promise.all(images.map(preloadImage));
     return { images };
   },
+  staleTime: Infinity,
   pendingComponent: DesktopLoader,
   pendingMs: 0,
-  pendingMinMs: 1000,
+  pendingMinMs: 5000,
 });
