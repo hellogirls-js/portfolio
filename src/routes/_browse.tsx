@@ -15,10 +15,10 @@ import {
 import clsx from "clsx";
 import WindowButtons from "@/components/window/WindowButtons";
 import { capitalizeFirstLetter } from "@/utils/functions";
+import { motion } from "motion/react";
 
 // TODO: for browser window
-// base tabs off of router history
-//
+// use zustand to track tabs state
 
 export const Route = createFileRoute("/_browse")({
   component: BrowserLayout,
@@ -30,13 +30,16 @@ function BrowserLayout() {
   const path = router.location.pathname.slice(1);
 
   return (
-    <div
+    <motion.div
+      initial={{ scale: 0, x: -100, y: 100 }}
+      animate={{ scale: 1, x: 0, y: 0 }}
+      transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
       className={clsx(
         "browser-window-container",
         "box-border",
         "h-full",
         "bg-browser-window",
-        "backdrop-blur-2xl",
+        "backdrop-blur-sm",
         "px-2 pb-2",
         "flex flex-col",
       )}
@@ -172,6 +175,6 @@ function BrowserLayout() {
       <div className="browser-content w-full h-full bg-base-50 rounded-b-sm shadow-2xl shadow-black/10">
         <Outlet />
       </div>
-    </div>
+    </motion.div>
   );
 }
