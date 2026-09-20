@@ -1,24 +1,39 @@
-import { createRootRoute, Outlet, useLocation } from "@tanstack/react-router";
+import {
+  createRootRoute,
+  Outlet,
+  useLocation,
+  useNavigate,
+} from "@tanstack/react-router";
 import clsx from "clsx";
-import { AnimatePresence, motion, MotionConfig } from "motion/react";
+import { AnimatePresence } from "motion/react";
 import DesktopIcon from "@/components/desktop/DesktopIcon";
 import DesktopLoader from "@/components/desktop/DesktopLoader";
 import Taskbar from "@/components/taskbar/Taskbar";
 import { SOCIALS } from "@/utils/constants";
 import { preloadImage } from "@/utils/functions";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
+import { useBrowser } from "@/stores/browser";
 
 function RootLayout() {
   const { images } = Route.useLoaderData();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const { tabs, switchTab, activeTabId } = useBrowser();
 
-  const [frozenOutlet, setFrozenOutlet] = useState(<Outlet />);
+  const tabsRef = useRef<IBrowserTab[]>(tabs);
 
   useEffect(() => {
-    if (pathname !== "/") {
-      setFrozenOutlet(<Outlet />);
+    if (tabs.length > tabsRef.current.length) {
+      switchTab(tabs[tabs.length - 1].openedAt);
     }
-  }, [pathname]);
+  }, [tabs]);
+
+  useEffect(() => {
+    const activeTab = tabs.find((tab) => tab.openedAt === activeTabId);
+    if (activeTab && pathname !== `/${activeTab.path}`) {
+      navigate({ to: `/${activeTab.path}` });
+    }
+  }, [activeTabId]);
 
   return (
     <div

@@ -5,17 +5,19 @@ import {
   IconMenu2,
   IconSearch,
   IconStar,
-  IconX,
 } from "@tabler/icons-react";
 import {
   createFileRoute,
   Outlet,
+  useNavigate,
   useRouterState,
 } from "@tanstack/react-router";
 import clsx from "clsx";
 import WindowButtons from "@/components/window/WindowButtons";
-import { capitalizeFirstLetter } from "@/utils/functions";
 import { motion } from "motion/react";
+import BrowserTab from "@/components/window/BrowserTab";
+import { useBrowser } from "@/stores/browser";
+import { useEffect } from "react";
 
 // TODO: for browser window
 // use zustand to track tabs state
@@ -26,8 +28,16 @@ export const Route = createFileRoute("/_browse")({
 
 function BrowserLayout() {
   const router = useRouterState();
+  const navigate = useNavigate();
+  const { tabs } = useBrowser();
 
   const path = router.location.pathname.slice(1);
+
+  useEffect(() => {
+    if (!tabs.length) {
+      navigate({ to: "/" });
+    }
+  }, [tabs]);
 
   return (
     <motion.div
@@ -44,7 +54,7 @@ function BrowserLayout() {
         "bg-browser-window",
         "backdrop-blur-sm",
         "px-2 pb-2",
-        "z-100",
+        "z-3",
         "flex flex-col",
       )}
     >
@@ -54,43 +64,21 @@ function BrowserLayout() {
         className={clsx(
           "drop-shadow-[0px -8px 8px shadow-black/100]",
           "flex-col",
+          "mt-1",
         )}
       >
         <div
           id="browser-tabs-container"
-          className={clsx("flex justify-start", "w-full h-10", "pl-12")}
+          className={clsx(
+            "flex justify-start items-center",
+            "w-full h-10",
+            "pl-12",
+            "overflow-hidden",
+          )}
         >
-          <div
-            className={clsx(
-              "relative",
-              "browser-tab",
-              "select-none",
-              "basis-1/5",
-              "text-sm",
-              "bg-primary-100",
-              "border-t border-primary-50",
-              "rounded-t-3xl",
-              "flex items-center justify-between",
-              "px-4",
-              "before:absolute",
-              "before:bottom-0",
-              "before:-left-6",
-              "before:w-6 before:h-6",
-              "before:content-['']",
-              "before:bg-[radial-gradient(circle_at_0_0,transparent_24px,var(--color-primary-100)_24px)]",
-              "after:absolute",
-              "after:bottom-0",
-              "after:-right-6",
-              "after:w-6 after:h-6",
-              "after:content-['']",
-              "after:bg-[radial-gradient(circle_at_100%_0,transparent_24px,var(--color-primary-100)_24px)]",
-            )}
-          >
-            <div className={clsx("name-icon-container", "flex items-center")}>
-              {capitalizeFirstLetter(path)}
-            </div>
-            <IconX size={16} color="#252e93" />
-          </div>
+          {tabs.map((tab, index) => (
+            <BrowserTab {...{ tab, index }} key={tab.openedAt} />
+          ))}
         </div>
         <div
           id="browser-address-bar-container"

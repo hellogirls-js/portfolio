@@ -42,21 +42,6 @@ export default function DesktopLoader() {
           Loading...
         </div>
       </div>
-      <div
-        id="desktop-loader-logo"
-        className={clsx(
-          "box-border",
-          "absolute",
-          "w-full h-auto",
-          "pb-4",
-          "bottom-0 left-0",
-          "drop-shadow-md",
-          "flex items-center justify-center gap-2",
-          "text-base-50",
-        )}
-      >
-        <IconHeartFilled size={32} className="text-base-50" />
-      </div>
     </div>
   );
 }

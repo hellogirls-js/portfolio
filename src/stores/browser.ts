@@ -1,19 +1,43 @@
 import { create } from "zustand";
 
 interface BrowserState {
-  tabs: string[];
-  addTab: (newTab: string) => void;
-  removeTab: (index: number) => void;
+  hideBrowser: boolean | null;
+  tabs: IBrowserTab[];
+  activeTabId: number | null;
+  addTab: (newTab: IBrowserTab) => void;
+  closeTab: (tabToRemove: IBrowserTab) => void;
   closeWindow: () => void;
+  switchTab: (activeTab: number) => void;
+  minimizeWindow: () => void;
+  maximizeWindow: () => void;
 }
 
 export const useBrowser = create<BrowserState>((set) => ({
+  hideBrowser: null,
   tabs: [],
-  addTab: (newTab) => set((browser) => ({ tabs: [...browser.tabs, newTab] })),
-  removeTab: (index) =>
+  activeTabId: null,
+  addTab: (newTab) =>
+    set((browser) => ({ ...browser, tabs: [...browser.tabs, newTab] })),
+  closeTab: (tabToRemove) =>
     set((browser) => {
-      const newTabs = browser.tabs.splice(index, 1);
-      return { tabs: newTabs };
+      const newTabs = [...browser.tabs].filter(
+        (tab) => tab.openedAt !== tabToRemove.openedAt,
+      );
+      return { ...browser, tabs: newTabs };
     }),
-  closeWindow: () => set(() => ({ tabs: [] })),
+  closeWindow: () =>
+    set((browser) => ({
+      ...browser,
+      tabs: [],
+      hideBrowser: null,
+      activeTabId: null,
+    })),
+  minimizeWindow: () =>
+    set((browser) => ({
+      ...browser,
+      hideBrowser: true,
+    })),
+  maximizeWindow: () => set((browser) => ({ ...browser, hideBrowser: false })),
+  switchTab: (activeTab) =>
+    set((browser) => ({ ...browser, activeTabId: activeTab })),
 }));

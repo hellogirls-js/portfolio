@@ -18,7 +18,7 @@ export default function StartButton() {
         className={clsx(
           "box-border",
           "relative",
-          "z-101",
+          "z-5",
           "overflow-hidden",
           "w-12 h-12",
           "rounded-full",

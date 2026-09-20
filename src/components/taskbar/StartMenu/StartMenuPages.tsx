@@ -1,6 +1,20 @@
-import { Link } from "@tanstack/react-router";
 import clsx from "clsx";
+import { useBrowser } from "@/stores/browser";
+import { capitalizeFirstLetter } from "@/utils/functions";
 import { START_MENU_LEFT_LINK } from "@/utils/styles";
+
+function PageButton({ page }: { page: string }) {
+  const { addTab } = useBrowser();
+  return (
+    <button
+      type="button"
+      className={clsx(START_MENU_LEFT_LINK, "text-left")}
+      onClick={() => addTab({ path: page, openedAt: Date.now() })}
+    >
+      {capitalizeFirstLetter(page)}
+    </button>
+  );
+}
 
 export default function StartMenuPages() {
   return (
@@ -22,19 +36,9 @@ export default function StartMenuPages() {
           "select-none",
         )}
       >
-        <Link className={clsx(START_MENU_LEFT_LINK)} to="/about">
-          About
-        </Link>
-        <Link className={clsx(START_MENU_LEFT_LINK)} to="/work">
-          Work
-        </Link>
-        <Link
-          className={clsx(START_MENU_LEFT_LINK)}
-          to="/blog"
-          params={{ postSlug: "" }}
-        >
-          Blog
-        </Link>
+        {["about", "work", "blog"].map((page) => (
+          <PageButton key={page} {...{ page }} />
+        ))}
       </div>
       <input
         type="text"
