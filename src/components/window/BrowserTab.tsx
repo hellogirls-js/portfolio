@@ -1,8 +1,10 @@
+/** biome-ignore-all lint/a11y/useSemanticElements: nesting a button inside of a button is wrong semantically, hr is confusing for vertical separators */
 import { IconX } from "@tabler/icons-react";
 import clsx from "clsx";
 import {
   useCallback,
   useMemo,
+  type KeyboardEvent as ReactKeyboardEvent,
   type MouseEvent as ReactMouseEvent,
 } from "react";
 import { useBrowser } from "@/stores/browser";
@@ -27,22 +29,33 @@ export default function BrowserTab({
     return tabs.findIndex((tab) => tab.openedAt === activeTabId);
   }, [activeTabId, isActiveTab]);
 
+  const tabAction = useCallback(() => {
+    if (isActiveTab) return;
+    switchTab(tab.openedAt);
+  }, [isActiveTab, switchTab]);
+
   const onTabClick = useCallback(
-    (_event: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {
-      if (isActiveTab) {
-        return;
-      } else {
-        switchTab(tab.openedAt);
-      }
+    (_event: ReactMouseEvent) => {
+      tabAction();
     },
-    [isActiveTab],
+    [tabAction],
+  );
+
+  const onTabKeyEvent = useCallback(
+    (event: ReactKeyboardEvent) => {
+      if (event.key !== "enter") return;
+      tabAction();
+    },
+    [tabAction],
   );
 
   return (
     <>
-      <button
-        type="button"
+      <div
+        role="button"
         onClick={onTabClick}
+        onKeyDown={onTabKeyEvent}
+        tabIndex={0}
         className={clsx(
           "relative",
           "h-full",
@@ -87,11 +100,11 @@ export default function BrowserTab({
             className={clsx(isActiveTab ? "text-primary-600" : "text-base-500")}
           />
         </button>
-      </button>
+      </div>
       {index < tabs.length - 1 &&
         !isActiveTab &&
         index !== activeTabIndex - 1 && (
-          <div className="w-px h-1/2 bg-base-400" />
+          <div role="separator" className="w-px h-1/2 bg-base-400" />
         )}
     </>
   );

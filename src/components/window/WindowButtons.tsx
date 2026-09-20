@@ -2,13 +2,23 @@ import { IconSquare, IconX } from "@tabler/icons-react";
 import clsx from "clsx";
 import { type MouseEvent, useCallback } from "react";
 import { useBrowser } from "@/stores/browser";
+import { useWindows } from "@/stores/windows";
 
 export default function WindowButtons() {
-  const { closeWindow } = useBrowser();
+  const { browserWindow, clearBrowserWindow, tabs } = useBrowser();
+  const { closeWindow, activeWindow } = useWindows();
 
-  const onCloseButtonClick = useCallback((_event: MouseEvent) => {
-    closeWindow();
-  }, []);
+  const onCloseButtonClick = useCallback(
+    (_event: MouseEvent) => {
+      console.log({ browserWindow });
+      if (browserWindow) {
+        closeWindow(browserWindow);
+        clearBrowserWindow();
+        console.log({ browserWindow, tabs, activeWindow });
+      }
+    },
+    [browserWindow, closeWindow],
+  );
 
   return (
     <div
