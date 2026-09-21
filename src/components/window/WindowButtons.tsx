@@ -6,7 +6,7 @@ import { useWindows } from "@/stores/windows";
 
 export default function WindowButtons() {
 	const { browserWindow, clearBrowserWindow } = useBrowser();
-	const { closeWindow } = useWindows();
+	const { closeWindow, minimizeWindow, maximizeWindow } = useWindows();
 
 	const onCloseButtonClick = useCallback(
 		(_event: MouseEvent) => {
@@ -18,6 +18,14 @@ export default function WindowButtons() {
 		[browserWindow, closeWindow],
 	);
 
+	const onMinimizeClick = useCallback(() => {
+		if (browserWindow) minimizeWindow(browserWindow);
+	}, [browserWindow, minimizeWindow]);
+
+	const onMaximizeClick = useCallback(() => {
+		if (browserWindow) maximizeWindow(browserWindow);
+	}, [browserWindow, maximizeWindow]);
+
 	return (
 		<div
 			className={clsx(
@@ -28,6 +36,7 @@ export default function WindowButtons() {
 		>
 			<button
 				type="button"
+				onClick={onMinimizeClick}
 				className={clsx(
 					"w-12",
 					"py-1",
@@ -50,6 +59,7 @@ export default function WindowButtons() {
 			</button>
 			<button
 				type="button"
+				onClick={onMaximizeClick}
 				className={clsx(
 					"w-12",
 					"py-1",

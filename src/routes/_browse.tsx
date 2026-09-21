@@ -14,7 +14,7 @@ import {
 } from "@tanstack/react-router";
 import clsx from "clsx";
 import { motion } from "motion/react";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import BrowserTab from "@/components/window/BrowserTab";
 import WindowButtons from "@/components/window/WindowButtons";
 import { useBrowser } from "@/stores/browser";
@@ -31,9 +31,21 @@ function BrowserLayout() {
 	const router = useRouterState();
 	const navigate = useNavigate();
 	const { tabs, browserWindow } = useBrowser();
-	const { closeWindow, activeWindow, setActiveWindow } = useWindows();
+	const { windows, closeWindow, activeWindow, setActiveWindow } = useWindows();
 
 	const path = router.location.pathname.slice(1);
+
+	const browserWindowInWindows = useMemo(() => {
+		return windows.find(
+			(window) => window.openedAt === browserWindow?.openedAt,
+		);
+	}, [windows, browserWindow]);
+
+	const browserWindowIndex = useMemo(() => {
+		return windows.findIndex(
+			(window) => window.openedAt === browserWindow?.openedAt,
+		);
+	}, [windows, browserWindow]);
 
 	useEffect(() => {
 		if (!tabs.length) {
@@ -54,10 +66,12 @@ function BrowserLayout() {
 		<motion.div
 			onClick={onWindowClick}
 			initial={{ scale: 0 }}
-			animate={{ scale: 1 }}
+			animate={{ scale: browserWindowInWindows?.minimized ? 0 : 1 }}
 			exit={{ scale: 0 }}
 			transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
-			style={{ transformOrigin: "2% 100%" }}
+			style={{
+				transformOrigin: `${2 * ((browserWindowIndex + 1) * 4)}% 100%`,
+			}}
 			className={clsx(
 				"browser-window-container",
 				"absolute",
