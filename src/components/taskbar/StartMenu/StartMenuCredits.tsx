@@ -33,6 +33,7 @@ export default function StartMenuCredits() {
         >
           React
         </a>
+        <div className="box-content h-px w-full border-b border-b-primary-400 bg-black" />
         <a
           className={START_MENU_RIGHT_LINK}
           href="https://tailwindcss.com"
@@ -48,6 +49,22 @@ export default function StartMenuCredits() {
           rel="noopener"
         >
           Tanstack Router
+        </a>
+        <a
+          className={START_MENU_RIGHT_LINK}
+          href="https://zustand.docs.pmnd.rs/"
+          target="_blank"
+          rel="noopener"
+        >
+          Zustand
+        </a>
+        <a
+          className={START_MENU_RIGHT_LINK}
+          href="https://motion.dev"
+          target="_blank"
+          rel="noopener"
+        >
+          Motion
         </a>
         <div className="box-content h-px w-full border-b border-b-primary-400 bg-black" />
         <a

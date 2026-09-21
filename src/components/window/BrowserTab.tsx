@@ -57,31 +57,16 @@ export default function BrowserTab({
         onKeyDown={onTabKeyEvent}
         tabIndex={0}
         className={clsx(
-          "relative",
-          "h-full",
-          "browser-tab",
-          "select-none",
-          "basis-1/5",
-          "text-sm",
-          isActiveTab && "bg-primary-100",
-          isActiveTab && "border-t border-t-primary-50",
-          "rounded-t-3xl",
-          "flex items-center justify-between",
-          "px-4",
-          isActiveTab && "before:absolute",
-          isActiveTab && "before:bottom-0",
-          isActiveTab && "before:-left-6",
-          isActiveTab && "before:w-6 before:h-6",
-          isActiveTab && "before:content-['']",
-          isActiveTab &&
-            `before:bg-[radial-gradient(circle_at_0_0,transparent_24px,var(--color-primary-100)_24px)]`,
-          isActiveTab && "after:absolute",
-          isActiveTab && "after:bottom-0",
-          isActiveTab && "after:-right-6",
-          isActiveTab && "after:w-6 after:h-6",
-          isActiveTab && "after:content-['']",
-          isActiveTab &&
+          "relative h-full browser-tab select-none basis-1/5 text-sm",
+          "rounded-t-3xl flex items-center justify-between px-4",
+          isActiveTab && [
+            "bg-primary-100",
+            "border-t border-t-primary-50",
+            "before:absolute before:bottom-0 before:-left-6 before:w-6 before:h-6 before:content-['']",
+            "before:bg-[radial-gradient(circle_at_0_0,transparent_24px,var(--color-primary-100)_24px)]",
+            "after:absolute after:bottom-0 after:-right-6 after:w-6 after:h-6 after:content-['']",
             "after:bg-[radial-gradient(circle_at_100%_0,transparent_24px,var(--color-primary-100)_24px)]",
+          ],
         )}
       >
         <div className={clsx("name-icon-container", "flex items-center")}>
@@ -90,7 +75,6 @@ export default function BrowserTab({
         <button
           type="button"
           onClick={(event) => {
-            console.log("clicky");
             event.stopPropagation();
             closeTab(tab);
           }}

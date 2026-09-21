@@ -1,10 +1,11 @@
 import clsx from "clsx";
+import { motion } from "motion/react";
 import Spinner from "../utils/Spinner";
-import { IconHeartFilled } from "@tabler/icons-react";
 
 export default function DesktopLoader() {
   return (
-    <div
+    <motion.div
+      exit={{ filter: "brightness(0)", transition: { duration: 0.5 } }}
       id="desktop-loader-container"
       className={clsx(
         "absolute",
@@ -42,6 +43,6 @@ export default function DesktopLoader() {
           Loading...
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -13,11 +13,12 @@ import {
   useRouterState,
 } from "@tanstack/react-router";
 import clsx from "clsx";
-import WindowButtons from "@/components/window/WindowButtons";
 import { motion } from "motion/react";
-import BrowserTab from "@/components/window/BrowserTab";
-import { useBrowser } from "@/stores/browser";
 import { useEffect } from "react";
+import BrowserTab from "@/components/window/BrowserTab";
+import WindowButtons from "@/components/window/WindowButtons";
+import { useBrowser } from "@/stores/browser";
+import { useWindows } from "@/stores/windows";
 
 // TODO: for browser window
 // use zustand to track tabs state
@@ -29,12 +30,16 @@ export const Route = createFileRoute("/_browse")({
 function BrowserLayout() {
   const router = useRouterState();
   const navigate = useNavigate();
-  const { tabs } = useBrowser();
+  const { tabs, browserWindow } = useBrowser();
+  const { closeWindow } = useWindows();
 
   const path = router.location.pathname.slice(1);
 
   useEffect(() => {
     if (!tabs.length) {
+      if (browserWindow) {
+        closeWindow(browserWindow);
+      }
       navigate({ to: "/" });
     }
   }, [tabs]);

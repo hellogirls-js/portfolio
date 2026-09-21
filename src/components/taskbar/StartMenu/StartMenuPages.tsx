@@ -24,6 +24,7 @@ function PageButton({ page }: { page: string }) {
         minimized: false,
       });
       setBrowserWindow(createdWindow);
+      setActiveWindow(createdWindow);
       addTab({ path: page, openedAt: Date.now() });
     }
   }, [browserWindow, createNewWindow, addTab]);

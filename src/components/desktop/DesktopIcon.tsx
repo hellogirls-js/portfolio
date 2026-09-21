@@ -48,11 +48,13 @@ export default function DesktopIcon({
         "py-2 rounded-sm",
         "w-20",
         "select-none",
+        "border ",
+        !isSelected && "border-transparent",
         !isSelected &&
           "hover:bg-linear-to-b hover:from-base-100/33 hover:from-80% hover:to-transparent",
         !isSelected && "hover:border hover:border-base-50",
         isSelected && "bg-linear-to-b from-base-100/33 from-80% to-transparent",
-        isSelected && "border border-base-50",
+        isSelected && "border-base-50",
       )}
     >
       <div className="desktop-icon relative box-border">

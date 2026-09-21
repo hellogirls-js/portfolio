@@ -4,6 +4,7 @@
 @theme {
   --font-body: "Noto Sans Variable", sans-serif;
   --font-website: "Verdana", sans-serif;
+  --font-serif: "Times New Roman", serif;
 
   --color-primary-50: #f3f4fc;
   --color-primary-100: #e2e4f8;
