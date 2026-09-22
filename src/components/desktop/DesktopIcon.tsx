@@ -70,9 +70,10 @@ export default function DesktopIcon({
         <img
           src={iconUrl}
           alt={social.name}
+          className="drop-shadow-sm pointer-events-none select-none box-border"
           width={60}
           height={60}
-          className="drop-shadow-sm pointer-events-none select-none box-border"
+          loading="lazy"
         />
       </div>
       <div
