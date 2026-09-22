@@ -19,7 +19,8 @@ import { preloadImage } from "@/utils/functions";
 function RootLayout() {
   const { images } = Route.useLoaderData();
   const { pathname } = useLocation();
-  const isPending = usePendingUI(5000, 5000);
+  const isPending = usePendingUI(5000);
+  console.log({ isPending });
   const navigate = useNavigate();
   const { tabs, switchTab, activeTabId, browserWindow } = useBrowser();
   const { windows, closeWindow } = useWindows();
