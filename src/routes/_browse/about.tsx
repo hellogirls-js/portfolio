@@ -33,7 +33,7 @@ function About() {
             "z-4",
             "pointer-events-none",
             "size-full",
-            "bg-[url('https://assets.hellogirls.info/portfolio/assets/texture.webp')]",
+            "bg-[url('https://assets.hellogirls.info/portfolio/assets/texture.png')]",
             "bg-fixed bg-repeat",
             "opacity-15",
             "mix-blend-multiply",
@@ -56,7 +56,7 @@ function About() {
             className={clsx(
               "relative",
               "w-full h-65",
-              "bg-[url('https://assets.hellogirls.info/portfolio/assets/header3.webp')] bg-cover bg-bottom",
+              "bg-[url('https://assets.hellogirls.info/portfolio/assets/header3.gif')] bg-cover bg-bottom",
               "flex items-center justify-center",
             )}
           >

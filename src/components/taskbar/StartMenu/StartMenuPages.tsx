@@ -32,9 +32,19 @@ function PageButton({ page }: { page: string }) {
   return (
     <button
       type="button"
-      className={clsx(START_MENU_LEFT_LINK, "text-left")}
+      className={clsx(
+        START_MENU_LEFT_LINK,
+        "text-left",
+        "flex items-center gap-2",
+      )}
       onClick={onPageClick}
     >
+      <img
+        src={`https://assets.hellogirls.info/portfolio/icons/${page}.ico`}
+        alt={page}
+        width={32}
+        height={32}
+      />
       {capitalizeFirstLetter(page)}
     </button>
   );

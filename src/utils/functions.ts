@@ -1,5 +1,5 @@
 export function capitalizeFirstLetter(string: string) {
-  return string[0] + string.slice(1);
+  return string[0].toUpperCase() + string.slice(1);
 }
 
 export function preloadImage(src: string) {

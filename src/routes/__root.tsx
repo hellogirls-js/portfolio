@@ -77,7 +77,7 @@ function RootLayout() {
             "box-border",
             "flex",
             "flex-col",
-            "bg-base-400",
+            "bg-[url('https://assets.hellogirls.info/portfolio/wallpaper.jpg')] bg-cover bg-fixed",
           )}
         >
           <main className={clsx("basis-full", "relative")}>

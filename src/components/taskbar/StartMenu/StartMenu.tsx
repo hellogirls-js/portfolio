@@ -73,12 +73,12 @@ export default function StartMenu({
       >
         <img
           alt="profile avatar"
-          src="https://assets.hellogirls.info/portfolio/assets/avatar.webp"
+          src="https://assets.hellogirls.info/portfolio/assets/avatar.png"
           className="size-22 backdrop-blur-xs"
         />
         <img
           alt="frame"
-          src="https://assets.hellogirls.info/portfolio/assets/frame.webp"
+          src="https://assets.hellogirls.info/portfolio/assets/frame.png"
           className="absolute top-0 left-0 size-32 select-none pointer-events-none"
         />
       </div>
