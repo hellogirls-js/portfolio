@@ -6,7 +6,8 @@ import {
 } from "@tanstack/react-router";
 import clsx from "clsx";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
+import Chatbox from "@/components/chatbox/Chatbox";
 import DesktopIcon from "@/components/desktop/DesktopIcon";
 import DesktopLoader from "@/components/desktop/DesktopLoader";
 import Taskbar from "@/components/taskbar/Taskbar";
@@ -20,12 +21,15 @@ function RootLayout() {
   const { images } = Route.useLoaderData();
   const { pathname } = useLocation();
   const isPending = usePendingUI(5000);
-  console.log({ isPending });
   const navigate = useNavigate();
   const { tabs, switchTab, activeTabId, browserWindow } = useBrowser();
-  const { windows, closeWindow } = useWindows();
+  const { windows, closeWindow, createNewWindow } = useWindows();
 
   const tabsRef = useRef<IBrowserTab[]>(tabs);
+
+  const isChatboxOpen = useMemo(() => {
+    return windows.find((window) => window.title === "chatbox");
+  }, [windows]);
 
   useEffect(() => {
     if (tabs.length > tabsRef.current.length) {
@@ -39,6 +43,18 @@ function RootLayout() {
       navigate({ to: `/${activeTab.path}` });
     }
   }, [activeTabId]);
+
+  useEffect(() => {
+    if (!windows.some((window) => window.title === "chatbox")) {
+      createNewWindow({
+        title: "chatbox",
+        openedAt: Date.now(),
+        shouldMaximize: false,
+        maximized: false,
+        minimized: false,
+      });
+    }
+  }, []);
 
   useEffect(() => {
     if (!browserWindow) {
@@ -98,6 +114,7 @@ function RootLayout() {
                 />
               ))}
             </div>
+            {isChatboxOpen && <Chatbox window={isChatboxOpen} />}
             <AnimatePresence
               onExitComplete={() => console.log("complete exit")}
             >
@@ -119,6 +136,7 @@ export const Route = createRootRoute({
         `https://assets.hellogirls.info/portfolio/icons/${social.name}.png`,
     );
     images.push("https://assets.hellogirls.info/portfolio/assets/shortcut.ico");
+    images.push("https://assets.hellogirls.info/portfolio/wallpaper.jpg");
     await Promise.all(images.map(preloadImage));
     return { images };
   },

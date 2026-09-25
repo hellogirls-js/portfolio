@@ -85,7 +85,7 @@ function BrowserLayout() {
         "flex flex-col",
       )}
     >
-      <WindowButtons />
+      <WindowButtons window={browserWindow} />
       <div
         id="browser-tabs-address-container"
         className={clsx(

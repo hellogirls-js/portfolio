@@ -27,7 +27,7 @@ export default function TaskbarOpenItem({ window }: { window: IWindow }) {
         "border border-primary-800",
         "shadow-xs shadow-primary-200/50",
         "rounded-sm",
-        "bg-taskbar",
+        "bg-taskbar-button",
         "text-base-50 text-shadow-md text-sm text-left",
         isActiveWindow && [
           "after:content-['']",

@@ -130,6 +130,7 @@ function About() {
               </a>
               )
             </p>
+            <hr className="my-4" />
             <p className="mt-2">
               hi!! my name is son and i am the webmaster for hellogirls.info. i
               can't share my real name because of internet safety u_u i love
@@ -146,8 +147,7 @@ function About() {
                 </li>
                 <li>cats</li>
                 <li>animal crossing</li>
-                <li>ensemble stars</li>
-                <li>shoujo manga</li>
+                <li>anime idols</li>
                 <li>hyperpop music</li>
                 <li>making websites</li>
               </ul>

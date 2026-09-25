@@ -33,7 +33,10 @@ export default function Taskbar() {
         </div>
         <div
           id="taskbar-center"
-          className={clsx("flex items-center justify-start grow", "h-full")}
+          className={clsx(
+            "flex items-center justify-start grow gap-2",
+            "h-full",
+          )}
         >
           {windows.map((window) => (
             <TaskbarOpenItem key={window.openedAt} {...{ window }} />

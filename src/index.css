@@ -39,6 +39,15 @@
   --color-base-800: #1b1c28;
   --color-base-900: #0e0f15;
 
+  --background-image-primary-button: linear-gradient(
+    180deg,
+    var(--color-primary-50) 0%,
+    var(--color-primary-400) 5%,
+    var(--color-primary-300) 52%,
+    var(--color-primary-700) 55%,
+    var(--color-primary-800) 100%
+  );
+
   --background-image-taskbar: linear-gradient(
     180deg,
     color-mix(in srgb, var(--color-primary-50) 60%, transparent) 0%,
@@ -46,6 +55,14 @@
     color-mix(in srgb, var(--color-primary-300) 50%, transparent) 52%,
     color-mix(in srgb, var(--color-primary-700) 50%, transparent) 55%,
     color-mix(in srgb, var(--color-primary-800) 50%, transparent) 100%
+  );
+
+  --background-image-taskbar-button: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-primary-50) 90%, transparent) 0%,
+    color-mix(in srgb, var(--color-primary-50) 20%, transparent) 5%,
+    color-mix(in srgb, var(--color-primary-700) 10%, transparent) 55%,
+    color-mix(in srgb, var(--color-primary-800) 10%, transparent) 100%
   );
 
   --background-image-start: linear-gradient(
@@ -69,10 +86,10 @@
     color-mix(in srgb, var(--color-base-200) 60%, transparent) 0%,
     color-mix(in srgb, var(--color-base-300) 60%, transparent) 25%,
     color-mix(in srgb, var(--color-base-100) 60%, transparent) 30%,
-    var(--color-base-100) 34%,
-    var(--color-base-300) 34%,
-    var(--color-base-100) 67%,
-    var(--color-base-200) 100%
+    color-mix(in srgb, var(--color-base-100) 80%, transparent) 34%,
+    color-mix(in srgb, var(--color-base-300) 80%, transparent) 34%,
+    color-mix(in srgb, var(--color-base-100) 80%, transparent) 67%,
+    color-mix(in srgb, var(--color-base-200) 80%, transparent) 100%
   );
 
   --background-image-browser-button: linear-gradient(
