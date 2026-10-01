@@ -18,6 +18,7 @@ function PageButton({ page }: { page: string }) {
       const windowDate = Date.now();
       const createdWindow = createNewWindow({
         title: "firefox",
+        file: "firefox1.ico",
         openedAt: windowDate,
         shouldMaximize: true,
         maximized: true,

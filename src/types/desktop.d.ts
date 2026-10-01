@@ -10,6 +10,7 @@ interface IBrowserTab {
 
 interface IWindow {
   title: string;
+  file: string;
   openedAt: number;
   shouldMaximize: boolean;
   maximized: boolean;

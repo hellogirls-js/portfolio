@@ -48,6 +48,7 @@ function RootLayout() {
     if (!windows.some((window) => window.title === "chatbox")) {
       createNewWindow({
         title: "chatbox",
+        file: "chatbox.gif",
         openedAt: Date.now(),
         shouldMaximize: false,
         maximized: false,

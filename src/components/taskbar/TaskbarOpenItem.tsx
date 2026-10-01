@@ -39,7 +39,7 @@ export default function TaskbarOpenItem({ window }: { window: IWindow }) {
       )}
     >
       <img
-        src={`https://assets.hellogirls.info/portfolio/icons/${window.title}${window.title === "firefox" ? "1" : ""}.ico`}
+        src={`https://assets.hellogirls.info/portfolio/icons/${window.file}`}
         alt={window.title}
         width={16}
         height={16}
