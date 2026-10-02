@@ -4,14 +4,18 @@ import { useWindows } from "@/stores/windows";
 import { capitalizeFirstLetter } from "@/utils/functions";
 
 export default function TaskbarOpenItem({ window }: { window: IWindow }) {
-	const { windows, activeWindow, maximizeWindow } = useWindows();
+	const { windows, activeWindow, maximizeWindow, showWindow } = useWindows();
 
 	const isActiveWindow = useMemo(() => {
 		return activeWindow?.openedAt === window.openedAt;
 	}, [windows, window, activeWindow]);
 
 	const onTaskbarClick = useCallback(() => {
-		if (window.shouldMaximize) maximizeWindow(window);
+		if (window.shouldMaximize) {
+			maximizeWindow(window);
+		} else {
+			showWindow(window);
+		}
 	}, [maximizeWindow, window]);
 
 	return (

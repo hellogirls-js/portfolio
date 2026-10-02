@@ -26,10 +26,8 @@ function RootLayout() {
 	const { windows, closeWindow, createNewWindow, activeWindow } = useWindows();
 
 	const tabsRef = useRef<IBrowserTab[]>(tabs);
-	const desktopContainerRef = useRef<HTMLDivElement | null>(null);
 
 	const isChatboxOpen = useMemo(() => {
-		console.log({ windows });
 		return windows.get("chatbox");
 	}, [windows]);
 
@@ -58,8 +56,6 @@ function RootLayout() {
 			});
 		}
 	}, []);
-
-	console.log({ isChatboxOpen });
 
 	useEffect(() => {
 		if (!browserWindow) {
@@ -99,10 +95,7 @@ function RootLayout() {
 						"bg-[url('https://assets.hellogirls.info/portfolio/wallpaper.jpg')] bg-cover bg-fixed",
 					)}
 				>
-					<main
-						ref={desktopContainerRef}
-						className={clsx("basis-full", "relative")}
-					>
+					<main className={clsx("basis-full", "relative")}>
 						<div
 							id="desktop-icons"
 							className={clsx(

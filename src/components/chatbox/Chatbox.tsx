@@ -1,7 +1,7 @@
 import type { API } from "@strapi/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import clsx from "clsx";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import Draggable from "react-draggable";
 import { useWindows } from "@/stores/windows";
 import { strapiClient } from "@/utils/constants";
@@ -12,10 +12,16 @@ import ChatboxMessages from "./ChatboxMessages";
 import { motion } from "motion/react";
 
 export default function Chatbox({ window }: { window: IWindow }) {
-	const { setActiveWindow } = useWindows();
+	const { setActiveWindow, windows } = useWindows();
 	const queryClient = useQueryClient();
 
 	const chatboxRef = useRef<HTMLDivElement | null>(null);
+
+	const chatboxWindowIndex = useMemo(() => {
+		return Array.from(windows.values()).findIndex(
+			(w) => window.openedAt === w.openedAt,
+		);
+	}, [windows, window]);
 
 	const {
 		mutateAsync: submitChatboxForm,
@@ -41,6 +47,9 @@ export default function Chatbox({ window }: { window: IWindow }) {
 				<motion.div
 					role="dialog"
 					animate={{ scale: window.minimized ? 0 : 1 }}
+					style={{
+						transformOrigin: `${(chatboxWindowIndex + 1) * 4}vw 94vh`,
+					}}
 					onClick={() => {
 						setActiveWindow(window);
 					}}
