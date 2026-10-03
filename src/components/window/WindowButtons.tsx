@@ -4,35 +4,48 @@ import { type MouseEvent, useCallback } from "react";
 import { useBrowser } from "@/stores/browser";
 import { useWindows } from "@/stores/windows";
 
-export default function WindowButtons({ window }: { window: IWindow | null }) {
+export default function WindowButtons({
+	window,
+	onMinimize,
+	onMaximize,
+	onClose,
+}: {
+	window: IWindow | null;
+	onMinimize?: () => void;
+	onMaximize?: () => void;
+	onClose?: () => void;
+}) {
 	const { browserWindow, clearBrowserWindow } = useBrowser();
 	const { closeWindow, minimizeWindow, maximizeWindow } = useWindows();
 
 	const onCloseButtonClick = useCallback(
 		(_event: MouseEvent) => {
 			if (!window) return;
+			if (onClose) onClose();
 			closeWindow(window);
 			if (browserWindow?.openedAt === window.openedAt) {
 				clearBrowserWindow();
 			}
 		},
-		[window, browserWindow, closeWindow],
+		[window, browserWindow, closeWindow, onClose],
 	);
 
 	const onMinimizeClick = useCallback(
 		(event: MouseEvent) => {
 			event.stopPropagation();
+			if (onMinimize) onMinimize();
 			if (window) minimizeWindow(window);
 		},
-		[window, minimizeWindow],
+		[window, minimizeWindow, onMinimize],
 	);
 
 	const onMaximizeClick = useCallback(
 		(event: MouseEvent) => {
 			event.stopPropagation();
+			if (onMaximize) onMaximize();
 			if (window) maximizeWindow(window);
 		},
-		[window, maximizeWindow],
+		[window, maximizeWindow, onMaximize],
 	);
 
 	return (

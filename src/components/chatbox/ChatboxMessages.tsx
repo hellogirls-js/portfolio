@@ -20,6 +20,8 @@ export default function ChatboxMessages() {
 					sort: "createdAt",
 				});
 
+				if (!allMessages.data) return null;
+
 				return allMessages.data as Array<API.Document & ChatboxMessageInput>;
 			} catch (error) {
 				const e: Error = error as Error;

@@ -1,7 +1,7 @@
 import type { API } from "@strapi/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import clsx from "clsx";
-import { useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Draggable from "react-draggable";
 import { useWindows } from "@/stores/windows";
 import { strapiClient } from "@/utils/constants";
@@ -12,7 +12,7 @@ import ChatboxMessages from "./ChatboxMessages";
 import { motion } from "motion/react";
 
 export default function Chatbox({ window }: { window: IWindow }) {
-	const { setActiveWindow, windows } = useWindows();
+	const { setActiveWindow, windows, activeWindow } = useWindows();
 	const queryClient = useQueryClient();
 
 	const chatboxRef = useRef<HTMLDivElement | null>(null);
@@ -22,6 +22,28 @@ export default function Chatbox({ window }: { window: IWindow }) {
 			(w) => window.openedAt === w.openedAt,
 		);
 	}, [windows, window]);
+
+	const isActiveWindow = useMemo(() => {
+		return activeWindow?.openedAt === window.openedAt;
+	}, [activeWindow, window]);
+
+	useEffect(() => {
+		function handleClickOutside(event: MouseEvent) {
+			if (
+				chatboxRef.current &&
+				!chatboxRef.current.contains(event.target as Node) &&
+				isActiveWindow
+			) {
+				setActiveWindow(null);
+			}
+		}
+
+		document.addEventListener("mousedown", handleClickOutside);
+
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, [isActiveWindow]);
 
 	const {
 		mutateAsync: submitChatboxForm,
@@ -42,7 +64,13 @@ export default function Chatbox({ window }: { window: IWindow }) {
 		<Draggable nodeRef={chatboxRef} handle="#chatbox-header" bounds="parent">
 			<div
 				ref={chatboxRef}
-				className={clsx("absolute", "top-1/4 right-1/4", "w-sm h-128")}
+				id="chatbox-ref"
+				className={clsx(
+					"absolute",
+					"top-1/4 right-1/4",
+					"w-sm h-128",
+					isActiveWindow ? "z-4" : "z-2",
+				)}
 			>
 				<motion.div
 					role="dialog"
@@ -50,7 +78,7 @@ export default function Chatbox({ window }: { window: IWindow }) {
 					style={{
 						transformOrigin: `${(chatboxWindowIndex + 1) * 4}vw 94vh`,
 					}}
-					onClick={() => {
+					onMouseDown={() => {
 						setActiveWindow(window);
 					}}
 					onKeyDown={() => {
@@ -121,7 +149,7 @@ export default function Chatbox({ window }: { window: IWindow }) {
 							</div>
 							<ChatboxMessages />
 						</div>
-						<ChatboxForm {...{ submitChatboxForm }} />
+						<ChatboxForm {...{ submitChatboxForm, isSubmissionPending }} />
 					</div>
 				</motion.div>
 			</div>
