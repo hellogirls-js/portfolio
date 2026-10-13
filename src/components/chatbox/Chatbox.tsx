@@ -10,12 +10,20 @@ import WindowButtons from "../window/WindowButtons";
 import ChatboxForm from "./ChatboxForm";
 import ChatboxMessages from "./ChatboxMessages";
 import { motion } from "motion/react";
+import { useWindowSize } from "react-use";
 
 export default function Chatbox({ window }: { window: IWindow }) {
 	const { setActiveWindow, windows, activeWindow } = useWindows();
 	const queryClient = useQueryClient();
+	const { width: screenWidth, height: screenHeight } = useWindowSize();
+
+	const [currentPosition, setCurrentPosition] = useState({
+		x: screenWidth * 0.75,
+		y: screenHeight * 0.25,
+	});
 
 	const chatboxRef = useRef<HTMLDivElement | null>(null);
+	const lastPosition = useRef<{ x: number; y: number }>(currentPosition);
 
 	const chatboxWindowIndex = useMemo(() => {
 		return Array.from(windows.values()).findIndex(
@@ -61,22 +69,30 @@ export default function Chatbox({ window }: { window: IWindow }) {
 	});
 
 	return (
-		<Draggable nodeRef={chatboxRef} handle="#chatbox-header" bounds="parent">
+		<Draggable
+			nodeRef={chatboxRef}
+			handle="#chatbox-header"
+			bounds="parent"
+			position={currentPosition}
+			onDrag={(_e, draggable) => {
+				setCurrentPosition({ x: draggable.x, y: draggable.y });
+				lastPosition.current = { x: draggable.lastX, y: draggable.lastY };
+			}}
+		>
 			<div
 				ref={chatboxRef}
 				id="chatbox-ref"
 				className={clsx(
 					"absolute",
-					"top-1/4 right-1/4",
+					"top-0 left-0",
 					"w-sm h-128",
 					isActiveWindow ? "z-4" : "z-2",
 				)}
 			>
 				<motion.div
 					role="dialog"
-					animate={{ scale: window.minimized ? 0 : 1 }}
-					style={{
-						transformOrigin: `${(chatboxWindowIndex + 1) * 4}vw 94vh`,
+					animate={{
+						scale: window.minimized ? 0 : 1,
 					}}
 					onMouseDown={() => {
 						setActiveWindow(window);

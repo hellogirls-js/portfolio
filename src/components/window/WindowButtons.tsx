@@ -21,11 +21,11 @@ export default function WindowButtons({
 	const onCloseButtonClick = useCallback(
 		(_event: MouseEvent) => {
 			if (!window) return;
-			if (onClose) onClose();
 			closeWindow(window);
 			if (browserWindow?.openedAt === window.openedAt) {
 				clearBrowserWindow();
 			}
+			if (onClose) onClose();
 		},
 		[window, browserWindow, closeWindow, onClose],
 	);
@@ -33,8 +33,8 @@ export default function WindowButtons({
 	const onMinimizeClick = useCallback(
 		(event: MouseEvent) => {
 			event.stopPropagation();
-			if (onMinimize) onMinimize();
 			if (window) minimizeWindow(window);
+			if (onMinimize) onMinimize();
 		},
 		[window, minimizeWindow, onMinimize],
 	);
@@ -42,8 +42,8 @@ export default function WindowButtons({
 	const onMaximizeClick = useCallback(
 		(event: MouseEvent) => {
 			event.stopPropagation();
-			if (onMaximize) onMaximize();
 			if (window) maximizeWindow(window);
+			if (onMaximize) onMaximize();
 		},
 		[window, maximizeWindow, onMaximize],
 	);

@@ -22,8 +22,6 @@ export default function ChatboxForm({
 }) {
 	const [token, setToken] = useState<string | null>(null);
 
-	console.log({ token });
-
 	const chatboxForm = useForm({
 		defaultValues: {
 			nickname: "",
