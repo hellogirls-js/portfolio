@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useDebounce } from "react-use";
 import { IconSearch } from "@tabler/icons-react";
 import { capitalizeFirstLetter } from "@/utils/functions";
+import type { BlogPost, BlogPostTag } from "@/types/strapi";
 
 const BLOG_POST_TAGS: BlogPostTag[] = ["coding", "cosplay", "review", "life"];
 
@@ -33,7 +34,6 @@ function RouteComponent() {
 	const {
 		data: blogPosts,
 		isLoading: areBlogPostsLoading,
-		isPending: areBlogPostsPending,
 		isPlaceholderData: areBlogPostsStale,
 		error: blogPostsError,
 	} = useQuery({

@@ -5,6 +5,7 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 import clsx from "clsx";
 import dayjs from "dayjs";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import type { BlogPost } from "@/types/strapi";
 
 export const Route = createFileRoute("/_browse/_blog/blog/$postSlug")({
 	loader: async ({ params }) => {
@@ -106,7 +107,7 @@ function RouteComponent() {
 							<img
 								src={image.url}
 								alt={image.alternativeText ?? ""}
-								className={"max-w-128"}
+								className="max-w-lg"
 							/>
 						),
 					}}
