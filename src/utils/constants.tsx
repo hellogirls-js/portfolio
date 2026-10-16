@@ -13,7 +13,7 @@ import {
 } from "@tabler/icons-react";
 
 export const strapiClient = strapi({
-	baseURL: import.meta.env.VITE_STRAPI_URL,
+	baseURL: `${import.meta.env.VITE_STRAPI_URL}/api/`,
 	auth: import.meta.env.VITE_STRAPI_TOKEN,
 });
 

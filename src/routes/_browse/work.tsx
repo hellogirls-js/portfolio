@@ -260,13 +260,15 @@ function RouteComponent() {
 											{project.name}
 										</h1>
 										<ProjectScreenshot progress={scrollYProgress} index={index}>
-											<img
-												alt={project.name}
-												src={`https://assets.hellogirls.info/portfolio/assets/${project.name?.toLowerCase().replaceAll(" ", "_")}_screenshot.jpg`}
-												width={width > 1000 ? width - 640 : width}
-												height="auto"
-												className="max-w-full"
-											/>
+											<a href={project.url} target="_blank" rel="noreferrer">
+												<img
+													alt={project.name}
+													src={`https://assets.hellogirls.info/portfolio/assets/${project.name?.toLowerCase().replaceAll(" ", "_")}_screenshot.jpg`}
+													width={width > 1000 ? width - 640 : width}
+													height="auto"
+													className="max-w-full"
+												/>
+											</a>
 										</ProjectScreenshot>
 									</div>
 									<div
