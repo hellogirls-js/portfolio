@@ -1,117 +1,119 @@
 @import "tailwindcss";
 @import "@fontsource-variable/noto-sans";
+@import "@fontsource-variable/montserrat";
 
 @theme {
-  --font-body: "Noto Sans Variable", sans-serif;
-  --font-website: "Verdana", sans-serif;
-  --font-serif: "Times New Roman", serif;
+	--font-body: "Noto Sans Variable", sans-serif;
+	--font-website: "Verdana", sans-serif;
+	--font-serif: "Times New Roman", serif;
+	--font-modern-header: "Montserrat", sans-serif;
 
-  --color-primary-50: #f3f4fc;
-  --color-primary-100: #e2e4f8;
-  --color-primary-200: #c2c6f0;
-  --color-primary-300: #8d94e2;
-  --color-primary-400: #545ed4;
-  --color-primary-500: #2e39b8;
-  --color-primary-600: #252e93;
-  --color-primary-700: #1d2472;
-  --color-primary-800: #141a52;
-  --color-primary-900: #0d1135;
+	--color-primary-50: #f3f4fc;
+	--color-primary-100: #e2e4f8;
+	--color-primary-200: #c2c6f0;
+	--color-primary-300: #8d94e2;
+	--color-primary-400: #545ed4;
+	--color-primary-500: #2e39b8;
+	--color-primary-600: #252e93;
+	--color-primary-700: #1d2472;
+	--color-primary-800: #141a52;
+	--color-primary-900: #0d1135;
 
-  --color-secondary-50: #fafcf3;
-  --color-secondary-100: #f2f7de;
-  --color-secondary-200: #e3eeba;
-  --color-secondary-300: #cee085;
-  --color-secondary-400: #bad454;
-  --color-secondary-500: #a6c431;
-  --color-secondary-600: #849b27;
-  --color-secondary-700: #61721d;
-  --color-secondary-800: #424e13;
-  --color-secondary-900: #262d0b;
+	--color-secondary-50: #fafcf3;
+	--color-secondary-100: #f2f7de;
+	--color-secondary-200: #e3eeba;
+	--color-secondary-300: #cee085;
+	--color-secondary-400: #bad454;
+	--color-secondary-500: #a6c431;
+	--color-secondary-600: #849b27;
+	--color-secondary-700: #61721d;
+	--color-secondary-800: #424e13;
+	--color-secondary-900: #262d0b;
 
-  --color-base-50: #f6f6f9;
-  --color-base-100: #eaeaf1;
-  --color-base-200: #d1d2e0;
-  --color-base-300: #a3a6c2;
-  --color-base-400: #7579a3;
-  --color-base-500: #52557a;
-  --color-base-600: #3d405c;
-  --color-base-700: #2b2d40;
-  --color-base-800: #1b1c28;
-  --color-base-900: #0e0f15;
+	--color-base-50: #f6f6f9;
+	--color-base-100: #eaeaf1;
+	--color-base-200: #d1d2e0;
+	--color-base-300: #a3a6c2;
+	--color-base-400: #7579a3;
+	--color-base-500: #52557a;
+	--color-base-600: #3d405c;
+	--color-base-700: #2b2d40;
+	--color-base-800: #1b1c28;
+	--color-base-900: #0e0f15;
 
-  --background-image-primary-button: linear-gradient(
-    180deg,
-    var(--color-primary-50) 0%,
-    var(--color-primary-400) 5%,
-    var(--color-primary-300) 52%,
-    var(--color-primary-700) 55%,
-    var(--color-primary-800) 100%
-  );
+	--background-image-primary-button: linear-gradient(
+		180deg,
+		var(--color-primary-50) 0%,
+		var(--color-primary-400) 5%,
+		var(--color-primary-300) 52%,
+		var(--color-primary-700) 55%,
+		var(--color-primary-800) 100%
+	);
 
-  --background-image-taskbar: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--color-primary-50) 60%, transparent) 0%,
-    color-mix(in srgb, var(--color-primary-400) 50%, transparent) 5%,
-    color-mix(in srgb, var(--color-primary-300) 50%, transparent) 52%,
-    color-mix(in srgb, var(--color-primary-700) 50%, transparent) 55%,
-    color-mix(in srgb, var(--color-primary-800) 50%, transparent) 100%
-  );
+	--background-image-taskbar: linear-gradient(
+		180deg,
+		color-mix(in srgb, var(--color-primary-50) 60%, transparent) 0%,
+		color-mix(in srgb, var(--color-primary-400) 50%, transparent) 5%,
+		color-mix(in srgb, var(--color-primary-300) 50%, transparent) 52%,
+		color-mix(in srgb, var(--color-primary-700) 50%, transparent) 55%,
+		color-mix(in srgb, var(--color-primary-800) 50%, transparent) 100%
+	);
 
-  --background-image-taskbar-button: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--color-primary-50) 90%, transparent) 0%,
-    color-mix(in srgb, var(--color-primary-50) 20%, transparent) 5%,
-    color-mix(in srgb, var(--color-primary-700) 10%, transparent) 55%,
-    color-mix(in srgb, var(--color-primary-800) 10%, transparent) 100%
-  );
+	--background-image-taskbar-button: linear-gradient(
+		180deg,
+		color-mix(in srgb, var(--color-primary-50) 90%, transparent) 0%,
+		color-mix(in srgb, var(--color-primary-50) 20%, transparent) 5%,
+		color-mix(in srgb, var(--color-primary-700) 10%, transparent) 55%,
+		color-mix(in srgb, var(--color-primary-800) 10%, transparent) 100%
+	);
 
-  --background-image-start: linear-gradient(
-    180deg,
-    var(--color-secondary-100) 3%,
-    var(--color-secondary-400) 33%,
-    transparent 60%
-  );
+	--background-image-start: linear-gradient(
+		180deg,
+		var(--color-secondary-100) 3%,
+		var(--color-secondary-400) 33%,
+		transparent 60%
+	);
 
-  --background-image-power: linear-gradient(
-    180deg,
-    var(--color-secondary-50) 0%,
-    var(--color-secondary-400) 25%,
-    var(--color-secondary-300) 52%,
-    var(--color-secondary-800) 55%,
-    var(--color-secondary-700) 100%
-  );
+	--background-image-power: linear-gradient(
+		180deg,
+		var(--color-secondary-50) 0%,
+		var(--color-secondary-400) 25%,
+		var(--color-secondary-300) 52%,
+		var(--color-secondary-800) 55%,
+		var(--color-secondary-700) 100%
+	);
 
-  --background-image-browser-window: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--color-base-200) 60%, transparent) 0%,
-    color-mix(in srgb, var(--color-base-300) 60%, transparent) 25%,
-    color-mix(in srgb, var(--color-base-100) 60%, transparent) 30%,
-    color-mix(in srgb, var(--color-base-100) 80%, transparent) 34%,
-    color-mix(in srgb, var(--color-base-300) 80%, transparent) 34%,
-    color-mix(in srgb, var(--color-base-100) 80%, transparent) 67%,
-    color-mix(in srgb, var(--color-base-200) 80%, transparent) 100%
-  );
+	--background-image-browser-window: linear-gradient(
+		180deg,
+		color-mix(in srgb, var(--color-base-200) 60%, transparent) 0%,
+		color-mix(in srgb, var(--color-base-300) 60%, transparent) 25%,
+		color-mix(in srgb, var(--color-base-100) 60%, transparent) 30%,
+		color-mix(in srgb, var(--color-base-100) 80%, transparent) 34%,
+		color-mix(in srgb, var(--color-base-300) 80%, transparent) 34%,
+		color-mix(in srgb, var(--color-base-100) 80%, transparent) 67%,
+		color-mix(in srgb, var(--color-base-200) 80%, transparent) 100%
+	);
 
-  --background-image-browser-button: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--color-base-50) 100%, transparent) 0%,
-    color-mix(in srgb, var(--color-base-400) 10%, transparent) 5%,
-    color-mix(in srgb, var(--color-base-300) 10%, transparent) 52%,
-    color-mix(in srgb, var(--color-base-700) 40%, transparent) 55%,
-    color-mix(in srgb, var(--color-base-800) 40%, transparent) 100%
-  );
+	--background-image-browser-button: linear-gradient(
+		180deg,
+		color-mix(in srgb, var(--color-base-50) 100%, transparent) 0%,
+		color-mix(in srgb, var(--color-base-400) 10%, transparent) 5%,
+		color-mix(in srgb, var(--color-base-300) 10%, transparent) 52%,
+		color-mix(in srgb, var(--color-base-700) 40%, transparent) 55%,
+		color-mix(in srgb, var(--color-base-800) 40%, transparent) 100%
+	);
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	box-sizing: border-box;
 }
 
 #root {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 }
