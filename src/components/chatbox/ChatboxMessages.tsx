@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import { useMemo } from "react";
 import { strapiClient } from "@/utils/constants";
 import Spinner from "../utils/Spinner";
+import type { ChatboxMessageInput } from "@/types/strapi";
 
 export default function ChatboxMessages() {
 	const {

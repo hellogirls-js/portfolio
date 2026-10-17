@@ -1,8 +1,4 @@
-import {
-	IconArrowRight,
-	IconCircleCheck,
-	IconCloudPause,
-} from "@tabler/icons-react";
+import { IconArrowRight, IconCircleCheck } from "@tabler/icons-react";
 import { createFileRoute } from "@tanstack/react-router";
 import clsx from "clsx";
 import {

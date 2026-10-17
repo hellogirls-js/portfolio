@@ -5,6 +5,7 @@ import type { UseMutateAsyncFunction } from "@tanstack/react-query";
 import clsx from "clsx";
 import { Turnstile } from "../Turnstile";
 import { useState } from "react";
+import type { ChatboxMessageInput } from "@/types/strapi";
 
 const MAX_MSG_LENGTH = 256;
 
