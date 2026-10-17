@@ -1,13 +1,19 @@
 import { strapi } from "@strapi/client";
-
-console.log(
-	import.meta.env.STRAPI_URL,
-	import.meta.env.STRAPI_TOKEN,
-	import.meta.env,
-);
+import {
+	IconBrandCss3,
+	IconBrandFirebase,
+	IconBrandHtml5,
+	IconBrandJavascript,
+	IconBrandMantine,
+	IconBrandNextjs,
+	IconBrandReact,
+	IconBrandSass,
+	IconBrandSupabase,
+	type Icon,
+} from "@tabler/icons-react";
 
 export const strapiClient = strapi({
-	baseURL: import.meta.env.VITE_STRAPI_URL,
+	baseURL: `${import.meta.env.VITE_STRAPI_URL}/api/`,
 	auth: import.meta.env.VITE_STRAPI_TOKEN,
 });
 
@@ -34,7 +40,26 @@ export const SOCIALS: Social[] = [
 	},
 ];
 
-export const PROJECTS = [
+export const STACK_ICONS = {
+	React: IconBrandReact,
+	"Next.js": IconBrandNextjs,
+	"Mantine UI": IconBrandMantine,
+	"Google Firebase": IconBrandFirebase,
+	HTML: IconBrandHtml5,
+	CSS: IconBrandCss3,
+	JavaScript: IconBrandJavascript,
+	SCSS: IconBrandSass,
+	Supabase: IconBrandSupabase,
+} satisfies Record<string, Icon>;
+
+export type StackItem = keyof typeof STACK_ICONS;
+
+export const PROJECTS: {
+	name: string;
+	url: string;
+	stack: StackItem[];
+	description: React.ReactNode;
+}[] = [
 	{
 		name: "MakoTools",
 		url: "https://stars.ensemble.moe",
@@ -95,22 +120,22 @@ export const PROJECTS = [
 			</>
 		),
 	},
-	{
-		name: "Ensemble Stars Favorites Picker",
-		url: "https://hellogirls.info/projects/enstars-faves-picker",
-		stack: ["React", "SCSS", "Konva.js"],
-		description: (
-			<>
-				<p>
-					A website that allows users to pick their favorite Ensemble Stars
-					characters from each unit and save their output as a clean, beautiful
-					image created with Konva.js
-				</p>
-				<p>
-					The Twitter post showcasing this webpage has over 1 million views and
-					over 10000 impressions.
-				</p>
-			</>
-		),
-	},
+	//{
+	// name: "Ensemble Stars Favorites Picker",
+	// url: "https://hellogirls.info/projects/enstars-faves-picker",
+	// stack: ["React", "SCSS", "Konva.js"],
+	// description: (
+	// 	<>
+	// 		<p>
+	// 			A website that allows users to pick their favorite Ensemble Stars
+	// 			characters from each unit and save their output as a clean, beautiful
+	// 			image created with Konva.js
+	// 		</p>
+	// 		<p>
+	// 			The Twitter post showcasing this webpage has over 1 million views and
+	// 			over 10000 impressions.
+	// 		</p>
+	// 	</>
+	// ),
+	//},
 ];

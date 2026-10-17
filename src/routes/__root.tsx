@@ -23,7 +23,7 @@ function RootLayout() {
 	const isPending = usePendingUI(5000);
 	const navigate = useNavigate();
 	const { tabs, switchTab, activeTabId, browserWindow } = useBrowser();
-	const { windows, closeWindow, createNewWindow, activeWindow } = useWindows();
+	const { windows, closeWindow, createNewWindow } = useWindows();
 
 	const tabsRef = useRef<IBrowserTab[]>(tabs);
 

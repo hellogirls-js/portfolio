@@ -1,7 +1,7 @@
 import type { API } from "@strapi/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import clsx from "clsx";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Draggable from "react-draggable";
 import { useWindows } from "@/stores/windows";
 import { strapiClient } from "@/utils/constants";
@@ -10,18 +10,21 @@ import WindowButtons from "../window/WindowButtons";
 import ChatboxForm from "./ChatboxForm";
 import ChatboxMessages from "./ChatboxMessages";
 import { motion } from "motion/react";
+import { useWindowSize } from "react-use";
+import type { ChatboxMessageInput } from "@/types/strapi";
 
 export default function Chatbox({ window }: { window: IWindow }) {
-	const { setActiveWindow, windows, activeWindow } = useWindows();
+	const { setActiveWindow, activeWindow } = useWindows();
 	const queryClient = useQueryClient();
+	const { width: screenWidth, height: screenHeight } = useWindowSize();
+
+	const [currentPosition, setCurrentPosition] = useState({
+		x: screenWidth * 0.75,
+		y: screenHeight * 0.25,
+	});
 
 	const chatboxRef = useRef<HTMLDivElement | null>(null);
-
-	const chatboxWindowIndex = useMemo(() => {
-		return Array.from(windows.values()).findIndex(
-			(w) => window.openedAt === w.openedAt,
-		);
-	}, [windows, window]);
+	const lastPosition = useRef<{ x: number; y: number }>(currentPosition);
 
 	const isActiveWindow = useMemo(() => {
 		return activeWindow?.openedAt === window.openedAt;
@@ -45,38 +48,43 @@ export default function Chatbox({ window }: { window: IWindow }) {
 		};
 	}, [isActiveWindow]);
 
-	const {
-		mutateAsync: submitChatboxForm,
-		error: submitChatboxError,
-		isPending: isSubmissionPending,
-	} = useMutation({
-		mutationFn: async (data: ChatboxMessageInput) => {
-			const messages = strapiClient.collection("chatbox-messages");
-			const result = await messages.create(data);
-			return result.data as API.Document & ChatboxMessageInput;
-		},
-		async onSuccess() {
-			await queryClient.invalidateQueries({ queryKey: ["chatboxMsgs"] });
-		},
-	});
+	const { mutateAsync: submitChatboxForm, isPending: isSubmissionPending } =
+		useMutation({
+			mutationFn: async (data: ChatboxMessageInput) => {
+				const messages = strapiClient.collection("chatbox-messages");
+				const result = await messages.create(data);
+				return result.data as API.Document & ChatboxMessageInput;
+			},
+			async onSuccess() {
+				await queryClient.invalidateQueries({ queryKey: ["chatboxMsgs"] });
+			},
+		});
 
 	return (
-		<Draggable nodeRef={chatboxRef} handle="#chatbox-header" bounds="parent">
+		<Draggable
+			nodeRef={chatboxRef}
+			handle="#chatbox-header"
+			bounds="parent"
+			position={currentPosition}
+			onDrag={(_e, draggable) => {
+				setCurrentPosition({ x: draggable.x, y: draggable.y });
+				lastPosition.current = { x: draggable.lastX, y: draggable.lastY };
+			}}
+		>
 			<div
 				ref={chatboxRef}
 				id="chatbox-ref"
 				className={clsx(
 					"absolute",
-					"top-1/4 right-1/4",
+					"top-0 left-0",
 					"w-sm h-128",
 					isActiveWindow ? "z-4" : "z-2",
 				)}
 			>
 				<motion.div
 					role="dialog"
-					animate={{ scale: window.minimized ? 0 : 1 }}
-					style={{
-						transformOrigin: `${(chatboxWindowIndex + 1) * 4}vw 94vh`,
+					animate={{
+						scale: window.minimized ? 0 : 1,
 					}}
 					onMouseDown={() => {
 						setActiveWindow(window);
