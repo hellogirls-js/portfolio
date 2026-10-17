@@ -146,19 +146,23 @@ function RouteComponent() {
             ),
             link: ({ children, url }) => {
               if (url.startsWith("/") || url.startsWith("#")) {
-                <a
-                  href={url}
-                  className="text-secondary-600 underline-offset-4 hover:text-primary-600"
-                >
-                  {children}
-                </a>;
+                return (
+                  <a
+                    href={url}
+                    className="text-secondary-600 underline-offset-4 hover:text-primary-600"
+                  >
+                    {children}
+                  </a>
+                );
               } else {
-                <ExternalLink
-                  to={url}
-                  className="text-secondary-600 underline-offset-4 hover:text-primary-600"
-                >
-                  {children}
-                </ExternalLink>;
+                return (
+                  <ExternalLink
+                    to={url}
+                    className="text-secondary-600 underline-offset-4 hover:text-primary-600"
+                  >
+                    {children}
+                  </ExternalLink>
+                );
               }
             },
             heading: ({ children, level }) => {
