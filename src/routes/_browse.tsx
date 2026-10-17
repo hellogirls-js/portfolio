@@ -122,7 +122,7 @@ function BrowserLayout() {
         >
           <div
             id="browser-address-left"
-            className={clsx("flex items-center grow")}
+            className={clsx("flex items-center grow min-w-0")}
           >
             <button
               type="button"
@@ -144,14 +144,14 @@ function BrowserLayout() {
                 "flex items-center",
                 "box-border",
                 "text-sm text-base-400",
-                "truncate",
-                "basis-full h-8",
-                "py-2 pl-6 -ml-3",
+                "min-w-0",
+                "basis-full max-w-full h-8",
+                "py-2 pl-6 pr-2 -ml-3",
                 "bg-base-50",
                 "border border-primary-300",
               )}
             >
-              https://hellogirls.info/{path}
+              <span className="truncate">https://hellogirls.info/{path}</span>
             </div>
           </div>
           <div

@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useCallback, useEffect, useRef, useState } from "react";
-import Draggable from "react-draggable";
+import Draggable, { type DraggableEventHandler } from "react-draggable";
 import { capitalizeFirstLetter } from "@/utils/functions";
 
 export default function DesktopIcon({
@@ -17,6 +17,24 @@ export default function DesktopIcon({
   const onDoubleClick = useCallback(() => {
     window.open(social.url);
   }, []);
+
+  const dragStart = useRef({ x: 0, y: 0 });
+
+  const onDragStart: DraggableEventHandler = useCallback((_event, data) => {
+    dragStart.current = { x: data.x, y: data.y };
+  }, []);
+
+  const onDragStop: DraggableEventHandler = useCallback(
+    (event, data) => {
+      if (event.type !== "touchend") return;
+      const distance = Math.hypot(
+        data.x - dragStart.current.x,
+        data.y - dragStart.current.y,
+      );
+      if (distance < 5) onDoubleClick();
+    },
+    [onDoubleClick],
+  );
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -37,12 +55,17 @@ export default function DesktopIcon({
   }, [isSelected]);
 
   return (
-    <Draggable nodeRef={desktopIconRef} axis="both" bounds="parent">
+    <Draggable
+      nodeRef={desktopIconRef}
+      axis="both"
+      bounds="parent"
+      onStart={onDragStart}
+      onStop={onDragStop}
+    >
       <button
         ref={desktopIconRef}
         type="button"
         onDoubleClick={onDoubleClick}
-        onTouchStart={onDoubleClick}
         onClick={() => setIsSelected((prev) => !prev)}
         className={clsx(
           "desktop-icon-container flex flex-col items-center gap-1",

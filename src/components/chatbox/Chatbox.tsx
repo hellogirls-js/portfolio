@@ -69,6 +69,7 @@ export default function Chatbox({ window }: { window: IWindow }) {
     <Draggable
       nodeRef={chatboxRef}
       handle="#chatbox-header"
+      cancel=".window-buttons button"
       bounds="parent"
       position={currentPosition}
       onDrag={(_e, draggable) => {
