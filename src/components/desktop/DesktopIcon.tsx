@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useCallback, useEffect, useRef, useState } from "react";
-import Draggable, { type DraggableEventHandler } from "react-draggable";
+import Draggable from "react-draggable";
 import { capitalizeFirstLetter } from "@/utils/functions";
 
 export default function DesktopIcon({
@@ -16,25 +16,16 @@ export default function DesktopIcon({
 
   const onDoubleClick = useCallback(() => {
     window.open(social.url);
-  }, []);
+  }, [social.url]);
 
-  const dragStart = useRef({ x: 0, y: 0 });
+  // Taps need to arrive as real click events: browsers only allow
+  // window.open from a trusted click, not from a document touchend listener.
+  const lastPointerType = useRef("mouse");
 
-  const onDragStart: DraggableEventHandler = useCallback((_event, data) => {
-    dragStart.current = { x: data.x, y: data.y };
-  }, []);
-
-  const onDragStop: DraggableEventHandler = useCallback(
-    (event, data) => {
-      if (event.type !== "touchend") return;
-      const distance = Math.hypot(
-        data.x - dragStart.current.x,
-        data.y - dragStart.current.y,
-      );
-      if (distance < 5) onDoubleClick();
-    },
-    [onDoubleClick],
-  );
+  const onClick = useCallback(() => {
+    if (lastPointerType.current === "touch") onDoubleClick();
+    else setIsSelected((prev) => !prev);
+  }, [onDoubleClick]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -59,17 +50,22 @@ export default function DesktopIcon({
       nodeRef={desktopIconRef}
       axis="both"
       bounds="parent"
-      onStart={onDragStart}
-      onStop={onDragStop}
+      // Don't preventDefault touchstart (that suppresses the tap's click);
+      // touch-none below stops the page from scrolling during a drag instead.
+      allowMobileScroll
     >
       <button
         ref={desktopIconRef}
         type="button"
+        onPointerDown={(event) => {
+          lastPointerType.current = event.pointerType;
+        }}
         onDoubleClick={onDoubleClick}
-        onClick={() => setIsSelected((prev) => !prev)}
+        onClick={onClick}
         className={clsx(
           "desktop-icon-container flex flex-col items-center gap-1",
           "box-border",
+          "touch-none",
           "py-2 rounded-sm",
           "w-20",
           "select-none",
