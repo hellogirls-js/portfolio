@@ -1,9 +1,5 @@
 import type { API } from "@strapi/client";
-import {
-  IconAlertOctagon,
-  IconAlertTriangle,
-  IconSearch,
-} from "@tabler/icons-react";
+import { IconAlertTriangle, IconSearch } from "@tabler/icons-react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import clsx from "clsx";
