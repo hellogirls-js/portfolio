@@ -35,19 +35,6 @@ export default function DesktopLoader() {
         )}
       />
       <div
-        className={clsx(
-          "absolute",
-          "bottom-0 left-0",
-          "w-full h-auto",
-          "flex justify-center",
-          "text-base-50",
-          "text-shadow-md text-shadow-black/25",
-          "pb-4",
-        )}
-      >
-        For best results, please view this website on a desktop computer
-      </div>
-      <div
         id="desktop-loader-items"
         className={clsx("flex items-center gap-4")}
       >
