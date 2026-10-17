@@ -15,9 +15,16 @@ import {
 import ExternalLink from "@/components/ExternalLink";
 
 export const Route = createFileRoute("/_browse/_blog/blog/$postSlug")({
-  loader: async ({ params }) => {
+  // Strapi's preview button links here with ?status=draft
+  validateSearch: (search): { status?: "draft" } => ({
+    status: search.status === "draft" ? "draft" : undefined,
+  }),
+  loaderDeps: ({ search }) => ({
+    status: search.status ?? ("published" as const),
+  }),
+  loader: async ({ params, deps }) => {
     const result = await strapiClient.collection("blog-posts").find({
-      status: "published",
+      status: deps.status,
       filters: { slug: { $eq: params.postSlug } },
       populate: {
         coverImage: {
@@ -126,11 +133,34 @@ function RouteComponent() {
             bold: ({ children }) => (
               <strong className="text-primary-600">{children}</strong>
             ),
+            italic: ({ children }) => (
+              <em className="text-primary-600">{children}</em>
+            ),
+            strikethrough: ({ children }) => (
+              <del className="text-base-600">{children}</del>
+            ),
           }}
           blocks={{
             paragraph: ({ children }) => (
               <p className="mb-8 leading-8">{children}</p>
             ),
+            link: ({ children, url }) => {
+              if (url.startsWith("/") || url.startsWith("#")) {
+                <a
+                  href={url}
+                  className="text-secondary-600 underline-offset-4 hover:text-primary-600"
+                >
+                  {children}
+                </a>;
+              } else {
+                <ExternalLink
+                  to={url}
+                  className="text-secondary-600 underline-offset-4 hover:text-primary-600"
+                >
+                  {children}
+                </ExternalLink>;
+              }
+            },
             heading: ({ children, level }) => {
               const HeadingTag = `h${level}` as const;
               return (
