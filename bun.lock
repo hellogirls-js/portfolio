@@ -7,6 +7,7 @@
       "dependencies": {
         "@fontsource-variable/montserrat": "^5.3.0",
         "@fontsource-variable/noto-sans": "^5.3.0",
+        "@fontsource/courier-prime": "^5.3.0",
         "@strapi/blocks-react-renderer": "^1.0.2",
         "@strapi/client": "^1.6.2",
         "@strapi/strapi": "^5.55.1",
@@ -274,6 +275,8 @@
     "@fontsource-variable/montserrat": ["@fontsource-variable/montserrat@5.3.0", "", {}, "sha512-7PaZoxaxrWLAyrhO46v65An9LhUhfkTExWLhfbywYZCnZEgg/W1rEHnlNmZKjNZ3nJTVYyicqxlJt10z/26yTA=="],
 
     "@fontsource-variable/noto-sans": ["@fontsource-variable/noto-sans@5.3.0", "", {}, "sha512-e3ZuxzY9AL2psXPZlhwhnYrHUHv6PMoyK9MQ7croF0CUgURLqu9EMjW7q2FgVLwij1tjLsIHQrnwQ8aUcg4BiA=="],
+
+    "@fontsource/courier-prime": ["@fontsource/courier-prime@5.3.0", "", {}, "sha512-KIi1k4VG1Wv+/CGpb1AUpLkUuOAQA6zmvthqxOZGN0AV8BEgQgbK7qAtquv14zsBJAY1bb5BHIEbWVFLgENh0w=="],
 
     "@formatjs/ecma402-abstract": ["@formatjs/ecma402-abstract@1.18.2", "", { "dependencies": { "@formatjs/intl-localematcher": "0.5.4", "tslib": "^2.4.0" } }, "sha512-+QoPW4csYALsQIl8GbN14igZzDbuwzcpWrku9nyMXlaqAlwRBgl5V+p0vWMGFqHOw37czNXaP/lEk4wbLgcmtA=="],
 

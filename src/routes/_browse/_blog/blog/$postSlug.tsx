@@ -29,54 +29,67 @@ export const Route = createFileRoute("/_browse/_blog/blog/$postSlug")({
 
 function RouteComponent() {
   const post = Route.useLoaderData();
-  console.log({ post });
 
   return (
-    <div className={clsx("w-full max-w-6xl", "m-auto")}>
-      <img
-        src={import.meta.env.VITE_STRAPI_URL + post.coverImage.url}
-        alt={post.coverImage.alternativeText}
-        className={clsx(
-          "rounded-lg border",
-          "border-base-200",
-          "w-full h-84",
-          "object-cover object-center",
-        )}
-      />
-      <div className="flex items-center gap-4 mt-4">
-        <h2
+    <div className={clsx("w-full", "m-auto")}>
+      {post.coverImage && (
+        <img
+          src={import.meta.env.VITE_STRAPI_URL + post.coverImage.url}
+          alt={post.coverImage.alternativeText}
           className={clsx(
-            "font-modern-header font-stretch-expanded font-black",
-            "text-primary-500 text-4xl",
+            "rounded-lg border",
+            "border-base-200",
+            "w-full h-84",
+            "object-cover object-center",
           )}
-        >
-          {post.title}
-        </h2>
-        {post.tag && (
-          <div
+        />
+      )}
+      <div className="w-full max-w-3xl m-auto ">
+        <div className="flex items-center gap-4 mt-4">
+          <h2
             className={clsx(
-              "post-tag",
-              "bg-secondary-300 text-secondary-800",
-              "py-1 px-2",
-              "text-sm",
-              "rounded-full",
-              "w-auto",
+              "font-mono font-stretch-expanded font-black",
+              "text-primary-400 text-4xl",
             )}
           >
-            {capitalizeFirstLetter(post.tag)}
-          </div>
-        )}
+            {post.title}
+          </h2>
+          {post.tag && (
+            <div
+              className={clsx(
+                "post-tag",
+                "bg-secondary-300 text-secondary-800",
+                "py-1 px-2",
+                "text-sm",
+                "rounded-full",
+                "w-auto",
+              )}
+            >
+              {capitalizeFirstLetter(post.tag)}
+            </div>
+          )}
+        </div>
+        <div className={clsx("flex", "text-sm", "text-base-400", "gap-4")}>
+          <div>{dayjs(post.createdAt).format("MMMM DD, YYYY @ h:mmA")}</div>
+          {post.updatedAt && !dayjs(post.updatedAt).isSame(post.createdAt) && (
+            <div>
+              Last updated{" "}
+              {dayjs(post.updatedAt).format("MMMM DD, YYYY @ h:mmA")}
+            </div>
+          )}
+        </div>
+        <div className={clsx("my-4")}>{post.summary}</div>
       </div>
-      <div className={clsx("flex", "text-sm", "text-base-400", "gap-4")}>
-        <div>{dayjs(post.createdAt).format("MMMM DD, YYYY @ h:mmA")}</div>
-        {post.updatedAt && !dayjs(post.updatedAt).isSame(post.createdAt) && (
-          <div>
-            Last updated {dayjs(post.updatedAt).format("MMMM DD, YYYY @ h:mmA")}
-          </div>
+      <hr className="text-base-200 my-12 w-52 m-auto" />
+      <div
+        id="post-content"
+        className={clsx(
+          "my-8",
+          "w-full max-w-3xl m-auto",
+          "text-lg",
+          "font-modern-header",
         )}
-      </div>
-      <div className={clsx("my-2")}>{post.summary}</div>
-      <div id="post-content" className={clsx("my-12")}>
+      >
         <BlocksRenderer
           content={post.content}
           modifiers={{
@@ -104,16 +117,16 @@ function RouteComponent() {
               );
             },
             image: ({ image }) => (
-              <figure className="max-w-lg">
+              <figure className="w-full max-w-3xl my-12">
                 <img
                   src={image.url}
                   alt={image.alternativeText ?? ""}
                   width={image.width}
                   height={image.height}
-                  className="max-w-lg"
+                  className="w-full rounded-lg"
                 />
                 {image.caption && (
-                  <figcaption className="text-sm text-base-300 italic">
+                  <figcaption className="text-base text-base-400 italic mt-2">
                     {image.caption}
                   </figcaption>
                 )}
