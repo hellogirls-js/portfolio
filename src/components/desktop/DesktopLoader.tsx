@@ -11,7 +11,7 @@ export default function DesktopLoader() {
         "absolute",
         "top-0 left-0",
         "z-200",
-        "w-screen h-screen",
+        "w-screen h-dvh",
         "bg-linear-to-b from-primary-300 to-secondary-400",
         "flex items-center justify-center",
       )}

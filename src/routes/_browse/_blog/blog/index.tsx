@@ -1,16 +1,17 @@
 import type { API } from "@strapi/client";
 import { IconAlertTriangle, IconSearch } from "@tabler/icons-react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import clsx from "clsx";
-import dayjs from "dayjs";
 import { useState } from "react";
 import Masonry from "react-responsive-masonry";
-import { BeatLoader } from "react-spinners";
 import { useDebounce } from "react-use";
+import BlogPostItem from "@/components/blog/BlogPostItem";
 import type { BlogPost, BlogPostTag } from "@/types/strapi";
 import { strapiClient } from "@/utils/constants";
 import { capitalizeFirstLetter } from "@/utils/functions";
+import { BLOG_TAG_FILTER_BUTTON } from "@/utils/styles";
+import BlogLoadingScreen from "@/components/blog/BlogLoadingScreen";
 
 const BLOG_POST_TAGS: BlogPostTag[] = ["coding", "cosplay", "review", "life"];
 
@@ -72,32 +73,7 @@ function RouteComponent() {
   });
 
   if (areBlogPostsLoading) {
-    return (
-      <div id="page-container" className={clsx("bg-base-50", "size-full")}>
-        <div
-          className={clsx(
-            "m-auto",
-            "w-full max-w-3xl h-full",
-            "flex flex-col items-center justify-center gap-8",
-          )}
-        >
-          {}
-          <h1
-            className={clsx(
-              "font-modern-header font-black uppercase font-stretch-expanded",
-              "text-base-600 text-5xl",
-            )}
-          >
-            Loading
-          </h1>
-
-          <BeatLoader
-            color="#2e39b8"
-            className={clsx("text-primary-500", "fill-primary-500")}
-          />
-        </div>
-      </div>
-    );
+    return <BlogLoadingScreen />;
   }
 
   return (
@@ -136,18 +112,7 @@ function RouteComponent() {
           id="filter-tags"
           className={clsx("flex flex-wrap lg:flex-nowrap items-center gap-2")}
         >
-          <label
-            className={clsx(
-              "px-3 py-1",
-              "rounded-full",
-              "border border-base-300",
-              "text-sm text-base-600",
-              "cursor-pointer select-none",
-              "hover:bg-base-100",
-              "has-checked:bg-secondary-200 has-checked:border-secondary-500 has-checked:text-secondary-800",
-              "has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-primary-500",
-            )}
-          >
+          <label className={BLOG_TAG_FILTER_BUTTON}>
             <input
               type="radio"
               name="tag"
@@ -160,19 +125,7 @@ function RouteComponent() {
             All
           </label>
           {BLOG_POST_TAGS.map((tag) => (
-            <label
-              key={tag}
-              className={clsx(
-                "px-3 py-1",
-                "rounded-full",
-                "border border-base-300",
-                "text-sm text-base-600",
-                "cursor-pointer select-none",
-                "hover:bg-base-100",
-                "has-checked:bg-secondary-200 has-checked:border-secondary-500 has-checked:text-secondary-800",
-                "has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-primary-500",
-              )}
-            >
+            <label key={tag} className={BLOG_TAG_FILTER_BUTTON}>
               <input
                 type="radio"
                 name="tag"
@@ -210,59 +163,9 @@ function RouteComponent() {
         )}
       >
         <Masonry columnsCount={4} gutter="8px">
-          {blogPosts?.map((post) => {
-            return (
-              <li
-                key={post.documentId}
-                className={clsx(
-                  "p-4",
-                  "rounded-lg",
-                  "max-w-96",
-                  "flex flex-col items-start gap-2",
-                  "hover:bg-base-100",
-                )}
-              >
-                {post.coverImage && (
-                  <img
-                    src={import.meta.env.VITE_STRAPI_URL + post.coverImage.url}
-                    width={384}
-                    height="auto"
-                    alt={post.coverImage.alternativeText}
-                    className="rounded-lg border border-base-200"
-                  />
-                )}
-                {post.tag && (
-                  <div
-                    className={clsx(
-                      "post-tag",
-                      "bg-secondary-300 text-secondary-800",
-                      "py-1 px-2",
-                      "text-sm",
-                      "rounded-full",
-                      "w-auto",
-                    )}
-                  >
-                    {capitalizeFirstLetter(post.tag)}
-                  </div>
-                )}
-                <h3
-                  className={clsx(
-                    "font-mono font-bold",
-                    "text-2xl",
-                    "text-primary-500",
-                  )}
-                >
-                  <Link to="/blog/$postSlug" params={{ postSlug: post.slug }}>
-                    {post.title}
-                  </Link>
-                </h3>
-                <div>{post.summary}</div>
-                <span className={clsx("text-sm text-base-400")}>
-                  {dayjs(post.createdAt).format("MMM D, YYYY")}
-                </span>
-              </li>
-            );
-          })}
+          {blogPosts?.map((post) => (
+            <BlogPostItem {...{ post }} key={post.documentId} />
+          ))}
         </Masonry>
       </ul>
     </div>

@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { START_MENU_RIGHT_LINK } from "@/utils/styles";
 import StartMenuOptionButtons from "./StartMenuOptionButtons";
+import ExternalLink from "@/components/ExternalLink";
 
 export default function StartMenuCredits() {
   return (
@@ -17,64 +18,41 @@ export default function StartMenuCredits() {
           "mt-20",
         )}
       >
-        <a
-          className={START_MENU_RIGHT_LINK}
-          href="https://bun.sh"
-          target="_blank"
-          rel="noopener"
-        >
+        <ExternalLink className={START_MENU_RIGHT_LINK} to="https://bun.sh">
           Bun
-        </a>
-        <a
-          className={START_MENU_RIGHT_LINK}
-          href="https://react.dev"
-          target="_blank"
-          rel="noopener"
-        >
+        </ExternalLink>
+        <ExternalLink className={START_MENU_RIGHT_LINK} to="https://react.dev">
           React
-        </a>
+        </ExternalLink>
         <div className="box-content h-px w-full border-b border-b-primary-400 bg-black" />
-        <a
+        <ExternalLink
           className={START_MENU_RIGHT_LINK}
-          href="https://tailwindcss.com"
-          target="_blank"
-          rel="noopener"
+          to="https://tailwindcss.com"
         >
           Tailwind
-        </a>
-        <a
+        </ExternalLink>
+        <ExternalLink
           className={START_MENU_RIGHT_LINK}
-          href="https://tanstack.com/router/latest"
-          target="_blank"
-          rel="noopener"
+          to="https://tanstack.com/router/latest"
         >
           Tanstack Router
-        </a>
-        <a
+        </ExternalLink>
+        <ExternalLink
           className={START_MENU_RIGHT_LINK}
-          href="https://zustand.docs.pmnd.rs/"
-          target="_blank"
-          rel="noopener"
+          to="https://zustand.docs.pmnd.rs/"
         >
           Zustand
-        </a>
-        <a
-          className={START_MENU_RIGHT_LINK}
-          href="https://motion.dev"
-          target="_blank"
-          rel="noopener"
-        >
+        </ExternalLink>
+        <ExternalLink className={START_MENU_RIGHT_LINK} to="https://motion.dev">
           Motion
-        </a>
+        </ExternalLink>
         <div className="box-content h-px w-full border-b border-b-primary-400 bg-black" />
-        <a
+        <ExternalLink
           className={START_MENU_RIGHT_LINK}
-          href="https://www.backblaze.com/"
-          target="_blank"
-          rel="noopener"
+          to="https://www.backblaze.com/"
         >
           Backblaze
-        </a>
+        </ExternalLink>
       </div>
       <StartMenuOptionButtons />
     </div>

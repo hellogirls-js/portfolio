@@ -76,7 +76,7 @@ function BrowserLayout() {
         "absolute",
         "top-0 left-0",
         "box-border",
-        "w-full h-[calc(100vh-48px)] max-h-[calc(100vh-48px)]",
+        "w-full h-[calc(100dvh-48px)] max-h-[calc(100dvh-48px)]",
         "bg-browser-window",
         "backdrop-blur-sm",
         "px-2 pb-2",

@@ -21,11 +21,11 @@ export default function Chatbox({ window }: { window: IWindow }) {
   const [currentPosition, setCurrentPosition] = useState({
     x:
       screenWidth <= 768
-        ? 0
+        ? 8
         : screenWidth <= 1600
           ? screenWidth * 0.6
           : screenWidth * 0.75,
-    y: screenHeight * 0.25,
+    y: screenWidth <= 768 ? 16 : screenHeight * 0.25,
   });
 
   const chatboxRef = useRef<HTMLDivElement | null>(null);

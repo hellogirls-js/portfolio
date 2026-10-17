@@ -9,8 +9,10 @@ import { capitalizeFirstLetter } from "@/utils/functions";
 import {
   IconBrandBluesky,
   IconBrandTwitter,
+  IconCoffee,
   IconHash,
 } from "@tabler/icons-react";
+import ExternalLink from "@/components/ExternalLink";
 
 export const Route = createFileRoute("/_browse/_blog/blog/$postSlug")({
   loader: async ({ params }) => {
@@ -112,7 +114,7 @@ function RouteComponent() {
       <div
         id="post-content"
         className={clsx(
-          "my-8 pb-16",
+          "my-8 px-4 lg:px-0 pb-16",
           "w-full max-w-3xl m-auto",
           "text-lg",
           "font-modern-header",
@@ -172,20 +174,15 @@ function RouteComponent() {
         )}
       >
         <div className="flex items-center gap-8">
-          <a
-            href="https://twitter.com/hellogirls_DEV"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <ExternalLink to="https://twitter.com/hellogirls_DEV">
             <IconBrandTwitter />
-          </a>
-          <a
-            href="https://bsky.app/profile/hellogirls.info"
-            target="_blank"
-            rel="noreferrer"
-          >
+          </ExternalLink>
+          <ExternalLink to="https://bsky.app/profile/hellogirls.info">
             <IconBrandBluesky />
-          </a>
+          </ExternalLink>
+          <ExternalLink to="https://buymeacoffee.com/hellogirls">
+            <IconCoffee />
+          </ExternalLink>
         </div>
       </footer>
     </div>

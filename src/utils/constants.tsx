@@ -138,3 +138,11 @@ export const PROJECTS: {
   // ),
   //},
 ];
+
+export const STOPS = Array.from(
+  { length: PROJECTS.length + 1 },
+  (_, k) => k / PROJECTS.length,
+);
+
+export const HOLD = 0.2;
+export const HOLD_RADIUS = HOLD / (2 * PROJECTS.length);
