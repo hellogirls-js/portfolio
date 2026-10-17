@@ -166,9 +166,9 @@ function RouteComponent() {
               return (
                 <HeadingTag
                   className={clsx(
-                    "font-black font-modern-header font-stretch-expanded",
-                    level === 1 && "text-4xl text-primary-500 mb-4",
-                    level === 2 && "text-3xl text-primary-600 mb-4",
+                    "font-black font-stretch-expanded",
+                    level === 1 && "text-4xl text-primary-500 mb-4 font-mono",
+                    level === 2 && "text-3xl text-primary-600 mb-4 font-mono",
                     level === 3 && "text-2xl text-primary-500 mb-3",
                   )}
                 >
