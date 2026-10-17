@@ -134,12 +134,13 @@ export default function Chatbox({ window }: { window: IWindow }) {
           </div>
           <div
             id="chatbox-content"
-            className={clsx("grow", "flex flex-col gap-2")}
+            className={clsx("grow", "min-h-0", "flex flex-col gap-2")}
           >
             <div
               id="chatbox-messages-container"
               className={clsx(
                 "grow",
+                "min-h-0",
                 "flex flex-col",
                 "relative",
                 "bg-linear-to-b from-secondary-400 to-30% to-base-50",

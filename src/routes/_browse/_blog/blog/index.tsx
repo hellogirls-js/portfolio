@@ -106,7 +106,7 @@ function RouteComponent() {
         className={clsx(
           "flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8",
           "w-full",
-          "py-2 px-4",
+          "py-2 px-8",
         )}
       >
         <div
@@ -205,7 +205,7 @@ function RouteComponent() {
       )}
       <ul
         className={clsx(
-          "w-full h-auto m-auto mt-4",
+          "w-full h-auto m-auto mt-4 px-4",
           areBlogPostsStale && "opacity-50",
         )}
       >

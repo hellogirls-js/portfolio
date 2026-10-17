@@ -6,6 +6,11 @@ import dayjs from "dayjs";
 import type { BlogPost } from "@/types/strapi";
 import { strapiClient } from "@/utils/constants";
 import { capitalizeFirstLetter } from "@/utils/functions";
+import {
+  IconBrandBluesky,
+  IconBrandTwitter,
+  IconHash,
+} from "@tabler/icons-react";
 
 export const Route = createFileRoute("/_browse/_blog/blog/$postSlug")({
   loader: async ({ params }) => {
@@ -31,60 +36,83 @@ function RouteComponent() {
   const post = Route.useLoaderData();
 
   return (
-    <div className={clsx("w-full", "m-auto")}>
-      {post.coverImage && (
-        <img
-          src={import.meta.env.VITE_STRAPI_URL + post.coverImage.url}
-          alt={post.coverImage.alternativeText}
+    <div className={clsx("w-full", "relative", "bg-base-50 text-primary-900")}>
+      <div
+        id="post-header"
+        className={clsx(
+          "flex flex-col lg:flex-row gap-0",
+          "w-full h-full min-h-full",
+          "border-b-24 border-b-secondary-500",
+        )}
+      >
+        {post.coverImage && (
+          <div className={clsx("basis-1/2", "overflow-hidden")}>
+            <img
+              src={import.meta.env.VITE_STRAPI_URL + post.coverImage.url}
+              alt={post.coverImage.alternativeText}
+              className={clsx("w-full h-full", "object-fill", "select-none")}
+            />
+          </div>
+        )}
+        <div
+          id="post-information"
           className={clsx(
-            "rounded-lg border",
-            "border-base-200",
-            "w-full h-84",
-            "object-cover object-center",
+            "basis-1/2",
+            "relative isolate",
+            "flex flex-col justify-around",
+            "p-8",
           )}
-        />
-      )}
-      <div className="w-full max-w-3xl m-auto ">
-        <div className="flex items-center gap-4 mt-4">
-          <h2
+        >
+          <div
+            aria-hidden
             className={clsx(
-              "font-mono font-stretch-expanded font-black",
-              "text-primary-400 text-4xl",
+              "absolute inset-0 -z-10",
+              "pattern-circuitboard bg-primary-100/70",
             )}
-          >
-            {post.title}
-          </h2>
-          {post.tag && (
-            <div
+          />
+          <div className="flex items-center flex-wrap gap-4 my-4">
+            <h1
               className={clsx(
-                "post-tag",
-                "bg-secondary-300 text-secondary-800",
-                "py-1 px-2",
-                "text-sm",
-                "rounded-full",
-                "w-auto",
+                "font-mono font-stretch-expanded font-black",
+                "text-primary-600 text-5xl",
               )}
             >
-              {capitalizeFirstLetter(post.tag)}
-            </div>
-          )}
+              {post.title}
+            </h1>
+            {post.tag && (
+              <div
+                className={clsx(
+                  "flex items-center gap-1",
+                  "post-tag",
+                  "bg-secondary-300 text-secondary-700",
+                  "py-1 px-2",
+                  "text-sm",
+                  "rounded-full",
+                  "w-auto",
+                )}
+              >
+                <IconHash size={16} color="#849b27" />
+                {capitalizeFirstLetter(post.tag)}
+              </div>
+            )}
+          </div>
+          <div className={clsx("my-4")}>{post.summary}</div>
+          <div className={clsx("flex", "text-sm", "text-base-400", "gap-4")}>
+            <div>{dayjs(post.createdAt).format("MMMM DD, YYYY @ h:mmA")}</div>
+            {post.updatedAt &&
+              !dayjs(post.updatedAt).isSame(post.createdAt) && (
+                <div>
+                  Last updated{" "}
+                  {dayjs(post.updatedAt).format("MMMM DD, YYYY @ h:mmA")}
+                </div>
+              )}
+          </div>
         </div>
-        <div className={clsx("flex", "text-sm", "text-base-400", "gap-4")}>
-          <div>{dayjs(post.createdAt).format("MMMM DD, YYYY @ h:mmA")}</div>
-          {post.updatedAt && !dayjs(post.updatedAt).isSame(post.createdAt) && (
-            <div>
-              Last updated{" "}
-              {dayjs(post.updatedAt).format("MMMM DD, YYYY @ h:mmA")}
-            </div>
-          )}
-        </div>
-        <div className={clsx("my-4")}>{post.summary}</div>
       </div>
-      <hr className="text-base-200 my-12 w-52 m-auto" />
       <div
         id="post-content"
         className={clsx(
-          "my-8",
+          "my-8 pb-16",
           "w-full max-w-3xl m-auto",
           "text-lg",
           "font-modern-header",
@@ -99,7 +127,7 @@ function RouteComponent() {
           }}
           blocks={{
             paragraph: ({ children }) => (
-              <p className="mb-4 leading-8">{children}</p>
+              <p className="mb-8 leading-8">{children}</p>
             ),
             heading: ({ children, level }) => {
               const HeadingTag = `h${level}` as const;
@@ -135,6 +163,31 @@ function RouteComponent() {
           }}
         />
       </div>
+      <footer
+        className={clsx(
+          "bg-secondary-600",
+          "text-base-50",
+          "w-full",
+          "py-4 px-16 mt-12",
+        )}
+      >
+        <div className="flex items-center gap-8">
+          <a
+            href="https://twitter.com/hellogirls_DEV"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <IconBrandTwitter />
+          </a>
+          <a
+            href="https://bsky.app/profile/hellogirls.info"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <IconBrandBluesky />
+          </a>
+        </div>
+      </footer>
     </div>
   );
 }
