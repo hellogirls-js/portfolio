@@ -3,6 +3,8 @@ name: Build and Deploy Portfolio
 on:
   push:
     branches: [main]
+  repository_dispatch:
+    types: [strapi-publish]
 
 concurrency:
   group: deploy
