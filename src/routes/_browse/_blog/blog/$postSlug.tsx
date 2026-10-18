@@ -1,18 +1,18 @@
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import type { API } from "@strapi/client";
-import { createFileRoute, notFound } from "@tanstack/react-router";
-import clsx from "clsx";
-import dayjs from "dayjs";
-import type { BlogPost } from "@/types/strapi";
-import { strapiClient } from "@/utils/constants";
-import { capitalizeFirstLetter } from "@/utils/functions";
 import {
   IconBrandBluesky,
   IconBrandTwitter,
   IconCoffee,
   IconHash,
 } from "@tabler/icons-react";
+import { createFileRoute, notFound } from "@tanstack/react-router";
+import clsx from "clsx";
+import dayjs from "dayjs";
 import ExternalLink from "@/components/ExternalLink";
+import type { BlogPost } from "@/types/strapi";
+import { strapiClient } from "@/utils/constants";
+import { capitalizeFirstLetter } from "@/utils/functions";
 
 export const Route = createFileRoute("/_browse/_blog/blog/$postSlug")({
   validateSearch: (search): { status?: "draft" } => ({
