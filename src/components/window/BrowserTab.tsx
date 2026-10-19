@@ -18,6 +18,9 @@ export default function BrowserTab({
 }) {
   const { activeTabId, switchTab, closeTab } = useBrowser();
 
+  // tab.path can be nested (blog/some-post), icons and names use the section
+  const section = tab.path.split("/")[0];
+
   const isActiveTab = useMemo(
     () => activeTabId === tab.openedAt,
     [activeTabId],
@@ -72,8 +75,8 @@ export default function BrowserTab({
     >
       <div className="flex items-center gap-4">
         <img
-          src={`https://assets.hellogirls.info/portfolio/icons/${tab.path}_favicon.gif`}
-          alt={tab.path}
+          src={`https://assets.hellogirls.info/portfolio/icons/${section}_favicon.gif`}
+          alt={section}
         />
         <div
           className={clsx(
@@ -82,7 +85,7 @@ export default function BrowserTab({
             "hidden lg:block",
           )}
         >
-          {capitalizeFirstLetter(tab.path)}
+          {capitalizeFirstLetter(section)}
         </div>
       </div>
       <button type="button" onClick={onTabClose}>

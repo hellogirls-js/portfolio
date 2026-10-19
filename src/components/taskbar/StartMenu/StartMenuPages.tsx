@@ -6,8 +6,8 @@ import { capitalizeFirstLetter } from "@/utils/functions";
 import { START_MENU_LEFT_LINK } from "@/utils/styles";
 
 function PageButton({ page }: { page: string }) {
-	const { addTab, browserWindow, setBrowserWindow } = useBrowser();
-	const { createNewWindow, maximizeWindow, setActiveWindow } = useWindows();
+	const { addTab, browserWindow, openBrowserWindow } = useBrowser();
+	const { maximizeWindow, setActiveWindow } = useWindows();
 
 	const onPageClick = useCallback(() => {
 		if (browserWindow) {
@@ -15,20 +15,10 @@ function PageButton({ page }: { page: string }) {
 			setActiveWindow(browserWindow);
 			maximizeWindow(browserWindow);
 		} else {
-			const windowDate = Date.now();
-			const createdWindow = createNewWindow({
-				title: "firefox",
-				file: "firefox1.ico",
-				openedAt: windowDate,
-				shouldMaximize: true,
-				maximized: true,
-				minimized: false,
-			});
-			setBrowserWindow(createdWindow);
-			setActiveWindow(createdWindow);
+			openBrowserWindow();
 			addTab({ path: page, openedAt: Date.now() });
 		}
-	}, [browserWindow, createNewWindow, addTab]);
+	}, [browserWindow, openBrowserWindow, addTab]);
 
 	return (
 		<button

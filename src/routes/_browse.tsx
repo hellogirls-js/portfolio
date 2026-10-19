@@ -14,7 +14,7 @@ import {
 } from "@tanstack/react-router";
 import clsx from "clsx";
 import { motion } from "motion/react";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import BrowserTab from "@/components/window/BrowserTab";
 import WindowButtons from "@/components/window/WindowButtons";
 import { useBrowser } from "@/stores/browser";
@@ -30,8 +30,17 @@ export const Route = createFileRoute("/_browse")({
 function BrowserLayout() {
   const router = useRouterState();
   const navigate = useNavigate();
-  const { tabs, browserWindow } = useBrowser();
+  const {
+    tabs,
+    browserWindow,
+    addTab,
+    switchTab,
+    setTabPath,
+    openBrowserWindow,
+  } = useBrowser();
   const { windows, closeWindow, activeWindow, setActiveWindow } = useWindows();
+
+  const prevTabCount = useRef(tabs.length);
 
   const path = router.location.pathname.slice(1);
 
@@ -47,13 +56,34 @@ function BrowserLayout() {
   }, [windows, browserWindow]);
 
   useEffect(() => {
-    if (!tabs.length) {
+    const hadTabs = prevTabCount.current > 0;
+    prevTabCount.current = tabs.length;
+
+    if (hadTabs && !tabs.length) {
       if (browserWindow) {
         closeWindow(browserWindow);
       }
       navigate({ to: "/" });
     }
   }, [tabs]);
+
+  // when opening a browser path directly rather than navigating thru a link,
+  // open the browser immediately. otherwise keep the active tab's path in sync
+  // with the url so nested pages like blog posts are kept when switching tabs
+  useEffect(() => {
+    if (!path) return;
+    const { tabs, activeTabId, browserWindow } = useBrowser.getState();
+    if (!browserWindow) {
+      openBrowserWindow();
+    }
+    if (!tabs.length && !activeTabId) {
+      const newTabId = Date.now();
+      addTab({ openedAt: newTabId, path });
+      switchTab(newTabId);
+    } else if (activeTabId) {
+      setTabPath(activeTabId, path);
+    }
+  }, [path]);
 
   const onWindowClick = useCallback(() => {
     if (activeWindow !== browserWindow) {

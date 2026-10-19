@@ -4,7 +4,9 @@ interface BrowserState {
 	activeTabId: number | null;
 	clearBrowserWindow: () => void;
 	setBrowserWindow: (window: IWindow) => void;
+	openBrowserWindow: () => IWindow;
 	addTab: (newTab: IBrowserTab) => void;
+	setTabPath: (tabId: number, path: string) => void;
 	closeTab: (tabToRemove: IBrowserTab) => void;
 	switchTab: (activeTab: number) => void;
 }
