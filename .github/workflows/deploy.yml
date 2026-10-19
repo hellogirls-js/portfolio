@@ -36,4 +36,4 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-          rsync -az --delete dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/about.hellogirls.info/repo
+          rsync -az --delete dist/client/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/about.hellogirls.info/repo
