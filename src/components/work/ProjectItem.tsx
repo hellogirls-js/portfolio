@@ -76,7 +76,7 @@ export default function ProjectItem({
             <div
               className={clsx(
                 "box-content",
-                "flex flex-col gap-4",
+                "flex flex-col items-end gap-4",
                 "lg:basis-1/4",
                 index % 2 === 0 ? "bg-white" : "bg-primary-600",
                 index % 2 === 1 && "text-white",
@@ -89,13 +89,15 @@ export default function ProjectItem({
             </div>
             <div
               className={clsx(
-                "flex justify-end items-center gap-4",
+                "flex gap-4 items-center justify-center",
                 "px-4",
-                "hidden lg:block",
+                "hidden lg:flex",
               )}
             >
               <div
                 className={clsx(
+                  "shrink",
+                  "w-auto",
                   "font-modern-header font-black",
                   "text-4xl",
                   index % 2 === 0 ? "text-white" : "text-primary-600",
@@ -107,6 +109,7 @@ export default function ProjectItem({
                 className={clsx(
                   "rounded-full",
                   "p-2",
+                  "w-16",
                   index % 2 === 0
                     ? "bg-primary-50 text-primary-500"
                     : "bg-primary-600 text-secondary-300",

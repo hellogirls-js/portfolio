@@ -1,12 +1,14 @@
 import {
   createRootRoute,
+  HeadContent,
   Outlet,
+  Scripts,
   useLocation,
   useNavigate,
 } from "@tanstack/react-router";
 import clsx from "clsx";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, type ReactNode } from "react";
 import Chatbox from "@/components/chatbox/Chatbox";
 import DesktopIcon from "@/components/desktop/DesktopIcon";
 import DesktopLoader from "@/components/desktop/DesktopLoader";
@@ -16,6 +18,21 @@ import { useBrowser } from "@/stores/browser";
 import { useWindows } from "@/stores/windows";
 import { SOCIALS } from "@/utils/constants";
 import { preloadImage } from "@/utils/functions";
+import "@/index.css";
+
+function RootDocument({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en">
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        {children}
+        <Scripts />
+      </body>
+    </html>
+  );
+}
 
 function RootLayout() {
   const { images } = Route.useLoaderData();
@@ -128,6 +145,54 @@ function RootLayout() {
 }
 
 export const Route = createRootRoute({
+  head: () => ({
+    links: [
+      {
+        rel: "icon",
+        href: "https://assets.hellogirls.info/portfolio/icons/blog_favicon.gif",
+      },
+    ],
+    scripts: [
+      {
+        src: "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit",
+        defer: true,
+      },
+    ],
+    meta: [
+      {
+        charSet: "utf-8",
+      },
+      {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1.0",
+      },
+      {
+        title: "Hellogirls: By Son",
+      },
+      {
+        name: "description",
+        content:
+          "Son's portfolio website rebuilt after 3 years of training and honing her design engineering skills. Send a message in the chatbox and read her blog!",
+      },
+      {
+        name: "keywords",
+        content:
+          "JavaScript, React, Portfolio, Frontend Developer, Design Engineer, Full-Stack Developer",
+      },
+      {
+        name: "author",
+        content: "Sonny",
+      },
+      {
+        property: "og:site_name",
+        content: "About Son",
+      },
+      {
+        property: "og:locale",
+        content: "en_US",
+      },
+    ],
+  }),
   component: RootLayout,
   loader: async () => {
     const images = SOCIALS.flatMap(
@@ -136,8 +201,12 @@ export const Route = createRootRoute({
     );
     images.push("https://assets.hellogirls.info/portfolio/assets/shortcut.ico");
     images.push("https://assets.hellogirls.info/portfolio/wallpaper.jpg");
-    await Promise.all(images.map(preloadImage));
+
+    if (typeof window !== "undefined") {
+      await Promise.all(images.map(preloadImage));
+    }
     return { images };
   },
+  shellComponent: RootDocument,
   staleTime: Infinity,
 });
