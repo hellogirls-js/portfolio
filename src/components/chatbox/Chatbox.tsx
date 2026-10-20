@@ -158,22 +158,28 @@ export default function Chatbox({ window }: { window: IWindow }) {
 								"min-h-0",
 								"flex flex-col",
 								"relative",
-								"bg-linear-to-b from-secondary-400 to-30% to-base-50",
-								"p-2",
+								"bg-base-50",
 								"rounded-sm",
 								"inset-shadow-sm",
 							)}
 						>
 							<div
 								id="chatbox-rules"
-								className="pl-4 pb-2 text-shadow-[0_0_4px] text-shadow-base-50"
+								className={clsx(
+									"shrink",
+									"pl-4 pr-2 pt-2 pb-4",
+									"text-shadow-[0_0_4px] text-shadow-base-50",
+									"bg-start",
+									"text-sm",
+									"shadow-lg",
+								)}
 							>
 								<ul className="list-disc">
 									<li>
-										<strong>absolutely NO</strong> inappropriate messages!! they
+										<strong>Absolutely NO</strong> inappropriate messages! They
 										will be deleted immediately
 									</li>
-									<li>no spamming!</li>
+									<li>No spamming!</li>
 								</ul>
 							</div>
 							<ChatboxMessages />
