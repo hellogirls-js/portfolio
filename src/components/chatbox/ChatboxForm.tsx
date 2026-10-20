@@ -74,6 +74,7 @@ export default function ChatboxForm({
 					}}
 					children={(field) => (
 						<input
+							id="chatbox-name-field"
 							type="text"
 							name={field.name}
 							required
@@ -117,6 +118,7 @@ export default function ChatboxForm({
 							children={(field) => (
 								<>
 									<textarea
+										id="chatbox-message-field"
 										className={clsx(
 											"grow",
 											"border border-base-400",
@@ -138,7 +140,8 @@ export default function ChatboxForm({
 										id="chatbox-msg-chara-count"
 										className="absolute bottom-1 right-1 text-xs text-base-400"
 									>
-										{field.state.value.length} / {MAX_MSG_LENGTH}
+										<span id="cbm-count">{field.state.value.length}</span> /{" "}
+										{MAX_MSG_LENGTH}
 									</div>
 								</>
 							)}
@@ -146,7 +149,9 @@ export default function ChatboxForm({
 					</div>
 					<button
 						type="submit"
-						disabled={isSubmissionPending || !token}
+						disabled={
+							isSubmissionPending || (import.meta.env.PROD ? !token : false)
+						}
 						onClick={() => {
 							chatboxForm.handleSubmit();
 						}}

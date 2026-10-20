@@ -14,4 +14,16 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import "./commands";
+
+declare global {
+	interface Window {
+		skipDesktopLoader?: boolean;
+	}
+}
+
+beforeEach(() => {
+	cy.on("window:before:load", (win) => {
+		win.skipDesktopLoader = true;
+	});
+});

@@ -37,7 +37,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 function RootLayout() {
   const { images } = Route.useLoaderData();
   const { pathname } = useLocation();
-  const isPending = usePendingUI(5000);
+  const isPending = usePendingUI(
+    typeof window !== "undefined" && window.skipDesktopLoader ? 0 : 5000,
+  );
   const navigate = useNavigate();
   const { tabs, switchTab, activeTabId, browserWindow } = useBrowser();
   const { windows, closeWindow, createNewWindow } = useWindows();
@@ -155,7 +157,7 @@ export const Route = createRootRoute({
     scripts: [
       {
         src: "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit",
-        defer: true,
+        async: true,
       },
     ],
     meta: [
