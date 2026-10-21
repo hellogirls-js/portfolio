@@ -48,11 +48,12 @@ function RootLayout() {
 		return windows.get("chatbox");
 	}, [windows]);
 
-	useEffect(() => {
-		if (tabs.length > tabsRef.current.length) {
-			switchTab(tabs[tabs.length - 1].openedAt);
-		}
-	}, [tabs]);
+  useEffect(() => {
+    if (tabs.length > tabsRef.current.length) {
+      switchTab(tabs[tabs.length - 1].openedAt);
+    }
+    tabsRef.current = tabs;
+  }, [tabs]);
 
 	useEffect(() => {
 		const activeTab = tabs.find((tab) => tab.openedAt === activeTabId);
@@ -87,61 +88,61 @@ function RootLayout() {
 		return <DesktopLoader />;
 	}
 
-	return (
-		<AnimatePresence mode="wait">
-			{isPending ? (
-				<DesktopLoader key="pending" />
-			) : (
-				<motion.div
-					key="loaded"
-					id="home-container"
-					initial={{ filter: "brightness(0)" }}
-					animate={{
-						filter: "brightness(1)",
-						transition: { duration: 0.8 },
-						transitionEnd: { filter: "none" },
-					}}
-					className={clsx(
-						"relative",
-						"isolate",
-						"font-body",
-						"w-full h-dvh",
-						"box-border",
-						"flex",
-						"flex-col",
-						"bg-[url('https://assets.hellogirls.info/portfolio/wallpaper.jpg')] bg-cover bg-fixed",
-					)}
-				>
-					<main className={clsx("basis-full", "relative")}>
-						<div
-							id="desktop-icons"
-							className={clsx(
-								"absolute",
-								"size-full",
-								"flex flex-col flex-wrap gap-10",
-								"py-2 px-4",
-							)}
-						>
-							{SOCIALS.map((social, index) => (
-								<DesktopIcon
-									key={social.name}
-									{...{ social }}
-									iconUrl={images[index]}
-								/>
-							))}
-						</div>
-						{isChatboxOpen && <Chatbox window={isChatboxOpen} />}
-						<AnimatePresence
-							onExitComplete={() => console.log("complete exit")}
-						>
-							<Outlet key={pathname !== "/" ? 1 : 0} />
-						</AnimatePresence>
-					</main>
-					<Taskbar />
-				</motion.div>
-			)}
-		</AnimatePresence>
-	);
+  return (
+    <AnimatePresence mode="wait">
+      {isPending ? (
+        <DesktopLoader key="pending" />
+      ) : (
+        <motion.div
+          key="loaded"
+          id="home-container"
+          initial={{ filter: "brightness(0)" }}
+          animate={{
+            filter: "brightness(1)",
+            transition: { duration: 0.8 },
+            transitionEnd: { filter: "none" },
+          }}
+          className={clsx(
+            "relative",
+            "isolate",
+            "font-body",
+            "w-full h-dvh",
+            "box-border",
+            "flex",
+            "flex-col",
+            "bg-[url('https://assets.hellogirls.info/portfolio/frutiger_aero_grn.jpg')] bg-cover bg-fixed",
+          )}
+        >
+          <main className={clsx("basis-full", "relative")}>
+            <div
+              id="desktop-icons"
+              className={clsx(
+                "absolute",
+                "size-full",
+                "flex flex-col flex-wrap gap-10",
+                "py-2 px-4",
+              )}
+            >
+              {SOCIALS.map((social, index) => (
+                <DesktopIcon
+                  key={social.name}
+                  {...{ social }}
+                  iconUrl={images[index]}
+                />
+              ))}
+            </div>
+            {isChatboxOpen && <Chatbox window={isChatboxOpen} />}
+            <AnimatePresence
+              onExitComplete={() => console.log("complete exit")}
+            >
+              <Outlet key={pathname !== "/" ? 1 : 0} />
+            </AnimatePresence>
+          </main>
+          <Taskbar />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 }
 
 export const Route = createRootRoute({

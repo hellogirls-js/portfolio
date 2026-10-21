@@ -38,7 +38,7 @@ export default function TaskbarOpenItem({ window }: { window: IWindow }) {
           "after:absolute",
           "after:top-0 after:left-0",
           "after:size-full",
-          "after:bg-radial-[at_75%_50%] after:from-secondary-400/50 after:from-50% after:to-transparent",
+          "after:bg-radial-[at_75%_50%] after:from-secondary-600/50 after:from-50% after:to-transparent",
         ],
       )}
     >
@@ -48,7 +48,7 @@ export default function TaskbarOpenItem({ window }: { window: IWindow }) {
         width={16}
         height={16}
       />
-      <span className="hidden lg:block">
+      <span className="hidden lg:block text-shadow-2xs">
         {capitalizeFirstLetter(window.title)}
       </span>
     </button>
