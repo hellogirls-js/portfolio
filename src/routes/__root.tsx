@@ -110,7 +110,7 @@ function RootLayout() {
             "box-border",
             "flex",
             "flex-col",
-            "bg-[url('https://assets.hellogirls.info/portfolio/frutiger_aero_grn.jpg')] bg-cover bg-fixed",
+            "bg-[url('https://assets.hellogirls.info/portfolio/frutiger_aero_5.jpg')] bg-cover bg-fixed",
           )}
         >
           <main className={clsx("basis-full", "relative")}>
@@ -201,7 +201,7 @@ export const Route = createRootRoute({
         `https://assets.hellogirls.info/portfolio/icons/${social.name}.png`,
     );
     images.push("https://assets.hellogirls.info/portfolio/assets/shortcut.ico");
-    images.push("https://assets.hellogirls.info/portfolio/wallpaper.jpg");
+    images.push("https://assets.hellogirls.info/portfolio/frutiger_aero_5.jpg");
 
     if (typeof window !== "undefined") {
       await Promise.all(images.map(preloadImage));
