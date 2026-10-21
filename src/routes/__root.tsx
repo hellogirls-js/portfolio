@@ -52,6 +52,7 @@ function RootLayout() {
     if (tabs.length > tabsRef.current.length) {
       switchTab(tabs[tabs.length - 1].openedAt);
     }
+    tabsRef.current = tabs;
   }, [tabs]);
 
   useEffect(() => {
@@ -109,7 +110,7 @@ function RootLayout() {
             "box-border",
             "flex",
             "flex-col",
-            "bg-[url('https://assets.hellogirls.info/portfolio/wallpaper.jpg')] bg-cover bg-fixed",
+            "bg-[url('https://assets.hellogirls.info/portfolio/frutiger_aero_grn.jpg')] bg-cover bg-fixed",
           )}
         >
           <main className={clsx("basis-full", "relative")}>

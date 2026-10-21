@@ -23,13 +23,13 @@ export default function BrowserTab({
 
   const isActiveTab = useMemo(
     () => activeTabId === tab.openedAt,
-    [activeTabId],
+    [activeTabId, tab.openedAt],
   );
 
   const tabAction = useCallback(() => {
     if (isActiveTab) return;
     switchTab(tab.openedAt);
-  }, [isActiveTab, switchTab]);
+  }, [isActiveTab, switchTab, tab.openedAt]);
 
   const onTabClick = useCallback(
     (_event: ReactMouseEvent) => {
@@ -40,7 +40,7 @@ export default function BrowserTab({
 
   const onTabKeyEvent = useCallback(
     (event: ReactKeyboardEvent) => {
-      if (event.key !== "enter") return;
+      if (event.key !== "Enter") return;
       tabAction();
     },
     [tabAction],

@@ -101,7 +101,7 @@ export default function DesktopIcon({
         <div
           className={clsx(
             "box-border",
-            "text-shadow-lg",
+            "text-shadow-[0px_0px_1px_rgb(0_0_0),0px_0px_4px_rgb(0_0_0/0.75),0px_0px_8px_rgb(0_0_0/0.5)]",
             "text-base-50",
             "text-sm text-center",
           )}
