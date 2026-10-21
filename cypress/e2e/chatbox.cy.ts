@@ -1,3 +1,6 @@
+import values from "../fixtures/chatbox.json";
+import { ChatboxError } from "../../src/types/enums";
+
 describe("chatbox", () => {
 	beforeEach(() => {
 		cy.viewport(1000, 660);
@@ -50,20 +53,44 @@ describe("chatbox", () => {
 	// more things to test:
 	// form functionality and error handling
 
-	it("types into the nickname field", () => {
-		cy.get("#chatbox-name-field").type("yo mama").blur();
-	});
+	context("chatbox form validation", () => {
+		const nameField = () => cy.get("#chatbox-name-field");
+		const msgField = () => cy.get("#chatbox-message-field");
 
-	it("types into the message field", () => {
-		cy.get("#chatbox-message-field").type("is so ugly").blur();
-	});
+		const nameError = () => cy.get("[data-cy='name-error-tooltip']");
+		const msgError = () => cy.get("[data-cy='msg-error-tooltip']");
 
-	it("increments the character counter while typing", () => {
-		cy.get("#chatbox-message-field")
-			.type("yo mama is so ugly")
-			.then(($msg) => {
-				const msgText = String($msg.val());
-				cy.get("#cbm-count").should("have.text", `${msgText.length}`);
-			});
+		beforeEach(() => {
+			nameField().clear();
+			msgField().clear();
+			cy.fixture("chatbox").as("values");
+		});
+
+		it("types into the nickname field", () => {
+			nameField()
+				.focus()
+				.should("not.be.disabled")
+				.type(values.nickname)
+				.blur();
+		});
+
+		it("types into the message field", () => {
+			msgField().focus().should("not.be.disabled").type(values.message).blur();
+		});
+
+		it("increments the character counter while typing", () => {
+			msgField()
+				.type(values.message)
+				.then(($msg) => {
+					const msgText = String($msg.val());
+					cy.get("#cbm-count").should("have.text", `${msgText.length}`);
+				});
+		});
+
+		it("displays an error on blur when a nickname is too short", () => {
+			nameField().type(values.short_nickname).blur();
+			nameError().should("exist");
+			nameError().contains(ChatboxError.NicknameTooShort).should("exist");
+		});
 	});
 });

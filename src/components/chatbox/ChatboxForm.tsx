@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { Turnstile } from "../Turnstile";
 import { useState } from "react";
 import type { ChatboxMessageInput } from "@/types/strapi";
+import { ChatboxError } from "../../types/enums";
 
 const MAX_MSG_LENGTH = 256;
 
@@ -62,11 +63,11 @@ export default function ChatboxForm({
 				<chatboxForm.Field
 					name="nickname"
 					validators={{
-						onChange: ({ value }) => {
+						onBlur: ({ value }) => {
 							if (!value?.length) {
-								return "Please provide a nickname!";
+								return ChatboxError.NicknameNotProvided;
 							} else if (value.length < 3) {
-								return "Nickname must be at least 3 characters long!";
+								return ChatboxError.NicknameTooShort;
 							} else {
 								return undefined;
 							}
@@ -82,16 +83,10 @@ export default function ChatboxForm({
 								onFocus={() => {
 									field.setMeta((prev) => ({
 										...prev,
-										errorMap: { ...prev.errorMap, onChange: undefined },
+										errorMap: { ...prev.errorMap, onBlur: undefined },
 									}));
 								}}
-								onBlur={() => {
-									field.handleBlur();
-									field.setMeta((prev) => ({
-										...prev,
-										errorMap: { ...prev.errorMap, onChange: undefined },
-									}));
-								}}
+								onBlur={field.handleBlur}
 								onChange={(event) => field.handleChange(event.target.value)}
 								placeholder="Nickname"
 								className={clsx(
@@ -108,8 +103,8 @@ export default function ChatboxForm({
 							/>
 							{field.state.meta.errors.length > 0 && (
 								<div
+									data-cy="name-error-tooltip"
 									className={clsx(
-										"textarea-error-tooltip",
 										"w-max max-w-48",
 										"p-1 px-2",
 										"absolute bottom-full mb-1 left-1/4 z-10",
@@ -134,7 +129,7 @@ export default function ChatboxForm({
 						<chatboxForm.Field
 							name="message"
 							validators={{
-								onChange: ({ value }) => {
+								onBlur: ({ value }) => {
 									if (!value?.length) {
 										return "Please provide a message!";
 									} else if (value.length > MAX_MSG_LENGTH) {
@@ -169,21 +164,16 @@ export default function ChatboxForm({
 										onFocus={() => {
 											field.setMeta((prev) => ({
 												...prev,
-												errorMap: { ...prev.errorMap, onChange: undefined },
+												errorMap: { ...prev.errorMap, onBlur: undefined },
 											}));
 										}}
-										onBlur={() => {
-											field.handleBlur();
-											field.setMeta((prev) => ({
-												...prev,
-												errorMap: { ...prev.errorMap, onChange: undefined },
-											}));
-										}}
+										onBlur={field.handleBlur}
 										onChange={(event) => field.handleChange(event.target.value)}
 										maxLength={MAX_MSG_LENGTH}
 									/>
 									{field.state.meta.errors.length > 0 && (
 										<div
+											data-cy="msg-error-tooltip"
 											className={clsx(
 												"textarea-error-tooltip",
 												"w-max max-w-48",
