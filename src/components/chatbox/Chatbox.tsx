@@ -43,7 +43,7 @@ export default function Chatbox({ window }: { window: IWindow }) {
 			x: Math.min(position.x, maxX),
 			y: Math.min(position.y, maxY),
 		}));
-	}, []);
+	}, [screenWidth, screenHeight]);
 
 	const isActiveWindow = useMemo(() => {
 		return activeWindow?.openedAt === window.openedAt;
