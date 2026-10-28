@@ -11,6 +11,7 @@ import {
   IconBrandSupabase,
   type Icon,
 } from "@tabler/icons-react";
+import type { ThemeRegistration } from "shiki";
 
 export const strapiClient = strapi({
   baseURL: `${import.meta.env.VITE_STRAPI_URL}/api/`,
@@ -146,3 +147,116 @@ export const STOPS = Array.from(
 
 export const HOLD = 0.2;
 export const HOLD_RADIUS = HOLD / (2 * PROJECTS.length);
+
+export const syntaxHighlighting: ThemeRegistration = {
+  name: "hellogirls_blog",
+  type: "light",
+  colors: {
+    "editor.foreground": "var(--color-primary-900)",
+    "editor.background": "var(--color-base-100)",
+  },
+  tokenColors: [
+    {
+      scope: ["comment", "punctuation.definition.comment"],
+      settings: {
+        foreground: "var(--color-base-400)",
+        fontStyle: "italic",
+      },
+    },
+    {
+      scope: ["punctuation", "meta.brace", "keyword.operator"],
+      settings: {
+        foreground: "var(--color-primary-400)",
+        fontStyle: "",
+      },
+    },
+    {
+      scope: [
+        "keyword",
+        "storage",
+        "constant.language.boolean",
+        "keyword.other.important",
+        "keyword.control.at-rule",
+      ],
+      settings: {
+        foreground: "var(--color-primary-600)",
+        fontStyle: "bold",
+      },
+    },
+    {
+      scope: [
+        "string",
+        "string.regexp",
+        "constant.character",
+        "markup.underline.link",
+      ],
+      settings: {
+        foreground: "var(--color-secondary-700)",
+      },
+    },
+    {
+      scope: ["constant.numeric"],
+      settings: {
+        foreground: "var(--color-secondary-700)",
+      },
+    },
+    {
+      scope: ["constant", "variable.other.constant", "support.constant"],
+      settings: {
+        foreground: "var(--color-secondary-700)",
+      },
+    },
+    {
+      scope: [
+        "entity.name.function",
+        "support.function",
+        "entity.name.type",
+        "entity.name.class",
+        "support.class",
+        "support.type.primitive",
+      ],
+      settings: {
+        foreground: "var(--color-primary-600)",
+      },
+    },
+    {
+      scope: [
+        "entity.name.tag",
+        "entity.other.attribute-name",
+        "support.type.property-name",
+        "meta.object-literal.key",
+        "variable.other.property",
+        "variable.other.object.property",
+      ],
+      settings: {
+        foreground: "var(--color-primary-700)",
+      },
+    },
+    {
+      scope: ["variable"],
+      settings: {
+        foreground: "var(--color-primary-800)",
+      },
+    },
+    {
+      scope: ["variable.parameter"],
+      settings: {
+        foreground: "var(--color-base-500)",
+        fontStyle: "italic",
+      },
+    },
+    {
+      scope: ["markup.deleted"],
+      settings: {
+        foreground: "var(--color-base-600)",
+        fontStyle: "strikethrough",
+      },
+    },
+    {
+      scope: ["markup.inserted"],
+      settings: {
+        foreground: "var(--color-secondary-700)",
+      },
+    },
+  ],
+};
