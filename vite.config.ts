@@ -46,6 +46,17 @@ export default defineConfig(async ({ command, mode }) => {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
       },
     },
+    // pre-bundle deps that are only reached through dynamic imports,
+    // otherwise vite discovers them mid-session and the page loads stale chunks
+    optimizeDeps: {
+      include: [
+        "shiki/core",
+        "shiki/engine/javascript",
+        "shiki/langs/css.mjs",
+        "shiki/langs/tsx.mjs",
+        "hast-util-to-jsx-runtime",
+      ],
+    },
     ssr: {
       noExternal: ["react-use"],
     },

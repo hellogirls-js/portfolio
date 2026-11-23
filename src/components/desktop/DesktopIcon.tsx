@@ -18,8 +18,6 @@ export default function DesktopIcon({
     window.open(social.url);
   }, [social.url]);
 
-  // Taps need to arrive as real click events: browsers only allow
-  // window.open from a trusted click, not from a document touchend listener.
   const lastPointerType = useRef("mouse");
 
   const onClick = useCallback(() => {
@@ -62,6 +60,11 @@ export default function DesktopIcon({
         }}
         onDoubleClick={onDoubleClick}
         onClick={onClick}
+        onKeyUp={(event) => {
+          if (event.key === "Enter") {
+            onDoubleClick();
+          }
+        }}
         className={clsx(
           "desktop-icon-container flex flex-col items-center gap-1",
           "box-border",
@@ -101,7 +104,7 @@ export default function DesktopIcon({
         <div
           className={clsx(
             "box-border",
-            "text-shadow-lg",
+            "text-shadow-[0px_0px_1px_rgb(0_0_0),0px_0px_4px_rgb(0_0_0/0.75),0px_0px_8px_rgb(0_0_0/0.5)]",
             "text-base-50",
             "text-sm text-center",
           )}

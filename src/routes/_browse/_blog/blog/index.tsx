@@ -92,7 +92,7 @@ function RouteComponent() {
             "flex items-center gap-4",
             "border border-base-300",
             "p-2",
-            "rounded-sm",
+            "rounded-full",
           )}
         >
           <div id="search-icon">
@@ -101,7 +101,11 @@ function RouteComponent() {
           <input
             type="text"
             placeholder="Search for Articles"
-            className={clsx("focus:outline-none")}
+            className={clsx(
+              "w-full",
+              "focus:outline-none",
+              "placeholder:text-base-300 placeholder:text-sm",
+            )}
             value={searchQuery}
             onChange={(event) => {
               setSearchQuery(event.currentTarget.value);

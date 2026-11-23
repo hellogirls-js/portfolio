@@ -37,7 +37,7 @@ function RouteComponent() {
             "text-primary-500",
             "text-5xl",
             "border-b border-b-base-200",
-            "p-4",
+            "p-4 px-8",
           )}
         >
           <h1 className="font-bold">Son Hellogirls</h1>
